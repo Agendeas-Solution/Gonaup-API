@@ -3,11 +3,11 @@ import { userService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
 class UserController {
-  async getUserDetailById(req: Request, res: Response, next: NextFunction) {
+  async getUserProfile(req: Request, res: Response, next: NextFunction) {
     try {
       sendSuccessResponse(
         res,
-        await userService.getUserDetailsById(Number(req.query.userId)),
+        await userService.getUserProfile(req.token.userId),
       )
     } catch (error) {
       next(error)

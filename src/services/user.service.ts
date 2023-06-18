@@ -5,9 +5,9 @@ import { saveFreelancerExperience } from '../interfaces'
 import { FieldPacket, RowDataPacket } from 'mysql2'
 
 class UserService {
-  async getUserDetailsById(userId: number) {
+  async getUserProfile(userId: number) {
     try {
-      const [userDetail] = await userHelper.getUserDetailsById(userId)
+      const [userDetail] = await userHelper.getUserProfile(userId)
 
       if (!userDetail[0])
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)

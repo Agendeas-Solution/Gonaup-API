@@ -81,18 +81,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/user?userId=1",
+							"raw": "{{localUrl}}/user",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
 								"user"
-							],
-							"query": [
-								{
-									"key": "userId",
-									"value": "1"
-								}
 							]
 						}
 					},

@@ -6,12 +6,7 @@ import { API_URL } from '../constants'
 
 const userRouter = Router()
 
-userRouter.get(
-  '/',
-  joiValidatorMiddleware(userSchemas.userDetailsById),
-  validateTokenMiddleware,
-  userController.getUserDetailById,
-)
+userRouter.get('/', validateTokenMiddleware, userController.getUserProfile)
 
 userRouter.post(
   API_URL.FREELANCER_EXPERIENCE,

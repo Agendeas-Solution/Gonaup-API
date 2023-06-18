@@ -18,12 +18,20 @@ class UserHelper {
     return pool.query(findQuery, [email])
   }
 
-  async getUserDetailsById(userId: number) {
+  async getUserProfile(userId: number) {
     const findQuery = `
     SELECT
       id,
       name,
-      email
+      email,
+      contact_number,
+      address,
+      skype_id,
+      english_level,
+      hourly_rate,
+      freelance_profile,
+      linkdin_profile,
+      github_profile
     FROM
       user_master
     WHERE
