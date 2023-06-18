@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "75ca76ab-1041-4627-a9ef-372d92606c44",
+		"name": "Gonaup - API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13975886",
+		"_collection_link": "https://universal-zodiac-442173.postman.co/workspace/New-Team-Workspace~de4a4ffc-51a9-4d86-8d31-950c7d687116/collection/13975886-75ca76ab-1041-4627-a9ef-372d92606c44?action=share&creator=13975886&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@123\",\n    \"type\": 0,\n    \"address\": \"Rajkot\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/signup",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/login",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Detail By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/user?userId=1",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Freelancer's Experience",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"frameworkId\": 1,\n    \"experiencedYears\": 3,\n    \"projectLinks\": [],\n    \"description\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/experience",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"experience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Freelancer Experience List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/experience/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"experience",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Freelance Experience By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"experienceId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/experience",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"experience"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Save Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test\",\n    \"budgetType\": 0,\n    \"fixedBudget\": 300,\n    \"projectDuration\": 0,\n    \"englishLevel\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project Detail By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/project?projectId=1",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client's Project List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/client/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"client",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assigned Project for Freelancer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/project/freelancer/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"freelancer",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search Framework List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/search/framework/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"search",
+								"framework",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Skill List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/search/skill/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"search",
+								"skill",
+								"list"
+							],
+							"query": [
+								{
+									"key": "searchQuery",
+									"value": "re",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NjkxNjE1N30.2yib9ebMfHB7kMluHv1YBi-X1yK2rnHmO_FLpBxptgk",
+			"type": "string"
+		}
+	]
+}
