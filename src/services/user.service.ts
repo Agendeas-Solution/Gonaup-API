@@ -2,6 +2,7 @@ import { NotFoundException } from '../exceptions'
 import { userHelper } from '../helpers'
 import { MESSAGES } from '../constants'
 import { saveFreelancerExperience } from '../interfaces'
+import { FieldPacket, RowDataPacket } from 'mysql2'
 
 class UserService {
   async getUserDetailsById(userId: number) {
@@ -35,7 +36,7 @@ class UserService {
 
   async getFreelancerExperienceList(data) {
     try {
-      const [[experienceCount], experienceList] = await Promise.all([
+      const [[experienceCount], row] = await Promise.all([
         userHelper.getFreelancerExperienceCount(data.userId),
         userHelper.getFreelancerExperienceList(data),
       ])
@@ -43,11 +44,19 @@ class UserService {
       if (!experienceCount[0].total)
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
+      const experienceList = row[0] as [RowDataPacket[][], FieldPacket[]]
+
+      for (const experience of experienceList) {
+        experience['project_links'] = experience['project_links']
+          ? experience['project_links'].split(',')
+          : []
+      }
+
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
         data: {
           totalPage: experienceCount[0].total,
-          experienceList: experienceList[0],
+          experienceList: experienceList,
         },
       }
     } catch (error) {
