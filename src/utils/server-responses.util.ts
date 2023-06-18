@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 export function sendSuccessResponse(
   res: Response,
-  body: { data?: any; message?: string },
+  body: { data?: any; message: string },
   statusCode = 200,
 ) {
   return res.status(statusCode).json({
@@ -17,7 +17,7 @@ export function sendErrorResponse(
   statusCode = 400,
 ) {
   return res.status(statusCode).json({
-    success: true,
+    success: false,
     ...body,
   })
 }

@@ -16,7 +16,7 @@ export function validateTokenMiddleware(
     if (!response.userId) {
       throw new UnauthorizedException('Unauthorized!')
     }
-    req['user'] = response
+    req.token = response
     next()
   } catch (error) {
     console.log(error)

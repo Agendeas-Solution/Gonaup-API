@@ -7,4 +7,5 @@ export const SERVER_CONFIG = {
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_AlGORITHM: process.env.JWT_AlGORITHM,
   JWT_RESET_SECRET: process.env.JWT_RESET_SECRET,
+  HASH_SALT: +process.env.HASH_SALT,
 }
