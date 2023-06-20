@@ -11,33 +11,6 @@
 			"name": "Authentication",
 			"item": [
 				{
-					"name": "User Signup",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@123\",\n    \"type\": 0,\n    \"address\": \"Rajkot\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localUrl}}/auth/signup",
-							"host": [
-								"{{localUrl}}"
-							],
-							"path": [
-								"auth",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "User Login",
 					"request": {
 						"method": "POST",
@@ -63,6 +36,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Client Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenishshekhaliya@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\" : \"live:123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/client/signup",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"client",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Freelancer Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live;\",\n    \"englishLevel\": 0,\n    \"hourlyRate\": 14,\n    \"freelanceProfile\": \"https\",\n    \"linkdingProfile\": \"https\",\n    \"githubProfile\": \"https\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/freelancer/signup",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"freelancer",
+								"signup"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -70,7 +99,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "Get User Detail By Id",
+					"name": "Get User Profile",
 					"request": {
 						"method": "GET",
 						"header": [

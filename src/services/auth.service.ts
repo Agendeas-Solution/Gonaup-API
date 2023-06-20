@@ -1,4 +1,8 @@
-import { emailSignupInterface, loginInterface } from '../interfaces'
+import {
+  clientSignupInterface,
+  freelancerSignupInterface,
+  loginInterface,
+} from '../interfaces'
 import { MESSAGES } from '../constants'
 import bcrypt from 'bcryptjs'
 import { SERVER_CONFIG } from '../config'
@@ -7,7 +11,7 @@ import { BadRequestException, NotFoundException } from '../exceptions'
 import { generateToken } from '../utils/jwt-token.util'
 
 class AuthService {
-  async emailSignup(data: emailSignupInterface) {
+  async clientEmailSignup(data: clientSignupInterface) {
     try {
       const [existedUser] = await userHelper.getUserByEmail(data.email)
 
@@ -16,7 +20,25 @@ class AuthService {
 
       data.password = await bcrypt.hash(data.password, SERVER_CONFIG.HASH_SALT)
 
-      await authHelper.emailSignup(data)
+      await authHelper.clientEmailSignup(data)
+
+      return { message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async freelancerEmailSignup(data: freelancerSignupInterface) {
+    try {
+      const [existedUser] = await userHelper.getUserByEmail(data.email)
+
+      if (existedUser[0])
+        throw new BadRequestException(MESSAGES.AUTH.USER_ALREADY_EXISTS)
+
+      data.password = await bcrypt.hash(data.password, SERVER_CONFIG.HASH_SALT)
+
+      await authHelper.freelancerEmailSignup(data)
 
       return { message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY }
     } catch (error) {

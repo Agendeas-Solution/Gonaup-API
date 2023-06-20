@@ -1,6 +1,6 @@
 export const USER = {
   TYPE: {
-    CLIENT: 0,
-    FREELANCER: 1,
+    FREELANCER: 0,
+    CLIENT: 1,
   },
 }

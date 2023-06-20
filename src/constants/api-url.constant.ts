@@ -1,5 +1,6 @@
 export const API_URL = {
-  EMAIL_SIGNUP: '/signup',
+  CLIENT_EMAIL_SIGNUP: '/client/signup',
+  FREELANCER_EMAIL_SIGNUP: '/freelancer/signup',
   LOGIN: '/login',
   CLIENT_PROJECT_LIST: '/client/list',
   FREELANCER_PROJECT_LIST: '/freelancer/list',
