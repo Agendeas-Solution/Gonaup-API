@@ -30,7 +30,7 @@ class AuthService {
       const [existedUser] = await userHelper.getUserByEmail(data.email)
 
       if (!existedUser[0])
-        throw new NotFoundException(MESSAGES.AUTH.USER_ALREADY_EXISTS)
+        throw new NotFoundException(MESSAGES.AUTH.INVALID_EMAIL_PASSWORD)
 
       const isMatched = await bcrypt.compare(
         data.password,
@@ -43,7 +43,7 @@ class AuthService {
       const token = generateToken({ userId: existedUser[0].id })
 
       return {
-        message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY,
+        message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,
         data: { token },
       }
     } catch (error) {
