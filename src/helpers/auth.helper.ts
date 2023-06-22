@@ -5,16 +5,18 @@ class AuthHelper {
   async clientEmailSignup(data: clientSignupInterface) {
     const insertQuery = `
     INSERT INTO user_master
-        (name,email,password,contact_number,type,skype_id,address)
+        (first_name,last_name,email,password,contact_number,type,skype_id,address,linkdin_profile)
     VALUES 
         (?,?,?,?,1,?,?)`
     return pool.query(insertQuery, [
-      data.name,
+      data.firstName,
+      data.lastName,
       data.email,
       data.password,
       data.contactNumber,
       data.skypeId,
       data.address,
+      data.linkedinProfile,
     ])
   }
 
@@ -22,7 +24,8 @@ class AuthHelper {
     const insertQuery = `
     INSERT INTO user_master
         (
-          name,
+          first_name,
+          last_name,
           email,
           password,
           contact_number,
@@ -38,7 +41,8 @@ class AuthHelper {
     VALUES 
         (?,?,?,?,0,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
-      data.name,
+      data.firstName,
+      data.lastName,
       data.email,
       data.password,
       data.contactNumber,

@@ -1,14 +1,17 @@
 export interface clientSignupInterface {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   contactNumber: string
   skypeId: string
   address: string
+  linkedinProfile: string
 }
 
 export interface freelancerSignupInterface {
-  name: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   contactNumber: string

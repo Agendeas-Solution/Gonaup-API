@@ -6,18 +6,21 @@ import Joi from 'joi'
 export const authSchemas = {
   clientEmailSignup: Joi.object({
     body: Joi.object({
-      name: Joi.string().required(),
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
       email: Joi.string().required(),
       password: Joi.string().required(),
       contactNumber: Joi.string(),
       skypeId: Joi.string().required(),
       address: Joi.string().required(),
+      linkedinProfile: Joi.string(),
     }).required(),
   }).unknown(),
 
   freelancerEmailSignup: Joi.object({
     body: Joi.object({
-      name: Joi.string().required(),
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
       email: Joi.string().required(),
       password: Joi.string().required(),
       contactNumber: Joi.string(),
