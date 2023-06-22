@@ -7,7 +7,7 @@ class UserHelper {
     const findQuery = `
       SELECT 
         id,
-        name, 
+        first_name, 
         password
       FROM
         user_master
@@ -22,7 +22,8 @@ class UserHelper {
     const findQuery = `
     SELECT
       id,
-      name,
+      first_name,
+      last_name,
       email,
       contact_number,
       address,
