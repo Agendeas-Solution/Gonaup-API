@@ -51,7 +51,7 @@ class AuthHelper {
       data.englishLevel,
       data.hourlyRate,
       data.freelanceProfile,
-      data.linkdingProfile,
+      data.linkdinProfile,
       data.githubProfile,
     ])
   }

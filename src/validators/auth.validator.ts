@@ -29,7 +29,7 @@ export const authSchemas = {
       englishLevel: Joi.number().required(),
       hourlyRate: Joi.number(),
       freelanceProfile: Joi.string(),
-      linkdingProfile: Joi.string(),
+      linkedinProfile: Joi.string(),
       githubProfile: Joi.string(),
     }).required(),
   }).unknown(),

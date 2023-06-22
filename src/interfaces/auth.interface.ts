@@ -20,7 +20,7 @@ export interface freelancerSignupInterface {
   englishLevel: number
   hourlyRate: number
   freelanceProfile: string
-  linkdingProfile: string
+  linkdinProfile: string
   githubProfile: string
 }
 
