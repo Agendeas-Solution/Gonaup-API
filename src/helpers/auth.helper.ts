@@ -5,9 +5,25 @@ class AuthHelper {
   async clientEmailSignup(data: clientSignupInterface) {
     const insertQuery = `
     INSERT INTO user_master
-        (first_name,last_name,email,password,contact_number,type,skype_id,address,linkdin_profile)
+        (
+          first_name,
+          last_name,
+          email,
+          password,
+          contact_number,
+          type,
+          skype_id,
+          address,
+          linkdin_profile,
+          country_id,
+          country_name,
+          state_id,
+          state_name,
+          city_id,
+          city_name
+        )
     VALUES 
-        (?,?,?,?,1,?,?)`
+        (?,?,?,?,?,1,?,?,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
       data.firstName,
       data.lastName,
@@ -17,6 +33,12 @@ class AuthHelper {
       data.skypeId,
       data.address,
       data.linkedinProfile,
+      data.countryId,
+      data.countryName,
+      data.stateId,
+      data.stateName,
+      data.cityId,
+      data.cityName,
     ])
   }
 
@@ -36,10 +58,16 @@ class AuthHelper {
           hourly_rate,
           freelance_profile,
           linkdin_profile,
-          github_profile
+          github_profile,
+          country_id,
+          country_name,
+          state_id,
+          state_name,
+          city_id,
+          city_name
         )
     VALUES 
-        (?,?,?,?,0,?,?,?,?,?,?,?)`
+        (?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
       data.firstName,
       data.lastName,
@@ -53,6 +81,12 @@ class AuthHelper {
       data.freelanceProfile,
       data.linkdinProfile,
       data.githubProfile,
+      data.countryId,
+      data.countryName,
+      data.stateId,
+      data.stateName,
+      data.cityId,
+      data.cityName,
     ])
   }
 }

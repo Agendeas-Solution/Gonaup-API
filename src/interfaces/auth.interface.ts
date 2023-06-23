@@ -7,6 +7,12 @@ export interface clientSignupInterface {
   skypeId: string
   address: string
   linkedinProfile: string
+  countryId?: number
+  countryName?: string
+  stateId?: number
+  stateName?: string
+  cityId?: number
+  cityName?: string
 }
 
 export interface freelancerSignupInterface {
@@ -22,6 +28,12 @@ export interface freelancerSignupInterface {
   freelanceProfile: string
   linkdinProfile: string
   githubProfile: string
+  countryId?: number
+  countryName?: string
+  stateId?: number
+  stateName?: string
+  cityId?: number
+  cityName?: string
 }
 
 export interface loginInterface {
