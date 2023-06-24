@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenishshekhaliya@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\" : \"live:123\"\n}",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenishpatel@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live:123\",\n    \"linkedinProfile\": \"http\",\n    \"countryId\": 1,\n    \"countryName\": \"India\",\n    \"stateId\": 2,\n    \"stateName\": \"Gujarat\",\n    \"cityId\": 3,\n    \"cityName\": \"Rajkot\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jenish\",\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live;\",\n    \"englishLevel\": 0,\n    \"hourlyRate\": 14,\n    \"freelanceProfile\": \"https\",\n    \"linkdingProfile\": \"https\",\n    \"githubProfile\": \"https\"\n}",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenish10@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live;\",\n    \"englishLevel\": 0,\n    \"hourlyRate\": 14,\n    \"freelanceProfile\": \"https\",\n    \"linkedinProfile\": \"https\",\n    \"githubProfile\": \"https\",\n    \"countryId\": 1,\n    \"countryName\": \"India\",\n    \"countryCode\" : \"IN\",\n    \"stateId\": 2,\n    \"stateName\": \"Gujarat\",\n    \"stateCode\" : \"GJ\",\n    \"cityId\": 3,\n    \"cityName\": \"Rajkot\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

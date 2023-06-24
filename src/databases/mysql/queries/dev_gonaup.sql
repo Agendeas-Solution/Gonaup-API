@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2023 at 09:06 PM
+-- Generation Time: Jun 24, 2023 at 06:59 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -178,6 +178,8 @@ CREATE TABLE `user_master` (
   `country_name` varchar(20) DEFAULT NULL,
   `state_id` int(11) DEFAULT NULL,
   `state_name` varchar(20) DEFAULT NULL,
+  `country_code` varchar(10) NOT NULL,
+  `state_code` varchar(10) NOT NULL,
   `city_id` int(11) DEFAULT NULL,
   `city_name` varchar(20) DEFAULT NULL,
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
@@ -194,12 +196,12 @@ CREATE TABLE `user_master` (
 -- Dumping data for table `user_master`
 --
 
-INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `contact_number`, `type`, `skype_id`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `city_id`, `city_name`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Jenish', '', 'jenish@gmail.com', '$2a$11$/8Dp7h4AAE2oElNmwmi1s.mzQzMqkrPl3xZyBSieEHmUhzKAgToA6', NULL, 0, NULL, 'Rajkot', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-15 12:47:16', '2023-06-20 14:49:09', '2023-06-29 14:49:06'),
-(4, 'Jenish', '', 'jenishshekhaliya@gmail.com', '$2a$11$TdVixOPab8vbUbM0lDGZHe/Lju0xBlMGuxFQzcEf.M7uZZuf88gg6', NULL, 1, 'live:123', 'Rajkot', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-20 14:49:33', NULL, NULL),
-(5, 'Jenish', '', 'jenish@gmail.com', '$2a$11$yw6lRGnrlapVVgrqo/R18OZTQDQQsMASLdYREdXlTBUpN3jXMNQkW', NULL, 0, 'live;', 'Rajkot', NULL, NULL, NULL, NULL, NULL, NULL, 0, 14, 'https', 'https', 'https', '2023-06-20 14:51:52', NULL, NULL),
-(7, 'Jenish', 'patel', 'jenishpatel@gmail.com', '$2a$11$dXCp2Cfp47UUl0Pf7G/Ghu4cjO4cIu9YPcNuHthz/xfK.Pfca.E.K', NULL, 1, 'live:123', 'Rajkot', 1, 'India', 2, 'Gujarat', 3, 'Rajkot', NULL, NULL, NULL, 'http', NULL, '2023-06-22 19:01:34', NULL, NULL),
-(8, 'Jenish', 'patel', 'jenish10@gmail.com', '$2a$11$rNHEjdHaEz0CXpaMshWS.uFyx7lRGQnhyXykZGcC/LIykKJQcfBFO', NULL, 0, 'live;', 'Rajkot', 1, 'India', 2, 'Gujarat', 3, 'Rajkot', 0, 14, 'https', NULL, 'https', '2023-06-22 19:04:34', NULL, NULL);
+INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `contact_number`, `type`, `skype_id`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `country_code`, `state_code`, `city_id`, `city_name`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Jenish', '', 'jenish@gmail.com', '$2a$11$/8Dp7h4AAE2oElNmwmi1s.mzQzMqkrPl3xZyBSieEHmUhzKAgToA6', NULL, 0, NULL, 'Rajkot', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-15 12:47:16', '2023-06-20 14:49:09', '2023-06-29 14:49:06'),
+(4, 'Jenish', '', 'jenishshekhaliya@gmail.com', '$2a$11$TdVixOPab8vbUbM0lDGZHe/Lju0xBlMGuxFQzcEf.M7uZZuf88gg6', NULL, 1, 'live:123', 'Rajkot', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-06-20 14:49:33', NULL, NULL),
+(5, 'Jenish', '', 'jenish@gmail.com', '$2a$11$yw6lRGnrlapVVgrqo/R18OZTQDQQsMASLdYREdXlTBUpN3jXMNQkW', NULL, 0, 'live;', 'Rajkot', NULL, NULL, NULL, NULL, '', '', NULL, NULL, 0, 14, 'https', 'https', 'https', '2023-06-20 14:51:52', NULL, NULL),
+(9, 'Jenish', 'patel', 'jenishpatel@gmail.com', '$2a$11$dNdy94west4eYwBHUBcfV.WZmStMKXnIqEbr9fmoUr3rgdeR4IFIm', NULL, 1, 'live:123', 'Rajkot', 1, 'India', 2, 'Gujarat', 'IN', 'GJ', 3, 'Rajkot', NULL, NULL, NULL, 'http', NULL, '2023-06-24 04:57:42', NULL, NULL),
+(10, 'Jenish', 'patel', 'jenish10@gmail.com', '$2a$11$r/souvDe1ect3BC7BxO/0eQul0WS8iLeCF1JA/pr2FbbcIXsJmMpu', NULL, 0, 'live;', 'Rajkot', 1, 'India', 2, 'Gujarat', 'IN', 'GJ', 3, 'Rajkot', 0, 14, 'https', NULL, 'https', '2023-06-24 04:58:13', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -294,7 +296,7 @@ ALTER TABLE `timzones`
 -- AUTO_INCREMENT for table `user_master`
 --
 ALTER TABLE `user_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

@@ -9,8 +9,10 @@ export interface clientSignupInterface {
   linkedinProfile: string
   countryId?: number
   countryName?: string
+  countryCode: string
   stateId?: number
   stateName?: string
+  stateCode: string
   cityId?: number
   cityName?: string
 }
@@ -30,8 +32,10 @@ export interface freelancerSignupInterface {
   githubProfile: string
   countryId?: number
   countryName?: string
+  countryCode: string
   stateId?: number
   stateName?: string
+  stateCode: string
   cityId?: number
   cityName?: string
 }

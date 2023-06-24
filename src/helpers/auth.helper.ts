@@ -17,13 +17,15 @@ class AuthHelper {
           linkdin_profile,
           country_id,
           country_name,
+          country_code,
           state_id,
           state_name,
+          state_code,
           city_id,
           city_name
         )
     VALUES 
-        (?,?,?,?,?,1,?,?,?,?,?,?,?,?,?)`
+        (?,?,?,?,?,1,?,?,?,?,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
       data.firstName,
       data.lastName,
@@ -35,8 +37,10 @@ class AuthHelper {
       data.linkedinProfile,
       data.countryId,
       data.countryName,
+      data.countryCode,
       data.stateId,
       data.stateName,
+      data.stateCode,
       data.cityId,
       data.cityName,
     ])
@@ -61,13 +65,15 @@ class AuthHelper {
           github_profile,
           country_id,
           country_name,
+          country_code,
           state_id,
           state_name,
+          state_code,
           city_id,
           city_name
         )
     VALUES 
-        (?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+        (?,?,?,?,?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
       data.firstName,
       data.lastName,
@@ -83,8 +89,10 @@ class AuthHelper {
       data.githubProfile,
       data.countryId,
       data.countryName,
+      data.countryCode,
       data.stateId,
       data.stateName,
+      data.stateCode,
       data.cityId,
       data.cityName,
     ])
