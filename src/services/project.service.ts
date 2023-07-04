@@ -1,4 +1,4 @@
-import { projectHelper } from '../helpers'
+import { companyHelper, projectHelper } from '../helpers'
 import { MESSAGES } from '../constants'
 import { saveClientProjectDetailInterface } from '../interfaces'
 import { NotFoundException } from '../exceptions'
@@ -26,7 +26,7 @@ class ProjectService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       return {
-        message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: projectDetail[0],
       }
     } catch (error) {
@@ -38,7 +38,7 @@ class ProjectService {
   async getClientProjectList(data) {
     try {
       const [[projectCount], projectList] = await Promise.all([
-        projectHelper.getClientProjectsCount(data.clientId),
+        projectHelper.getClientProjectsCount(data.companyId),
         projectHelper.getClientProjectList(data),
       ])
 
@@ -46,7 +46,7 @@ class ProjectService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       return {
-        message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
           projectList: projectList[0],
@@ -69,7 +69,7 @@ class ProjectService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       return {
-        message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
           projectList: projectList[0],

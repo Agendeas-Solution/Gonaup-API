@@ -30,6 +30,20 @@ class SearchController {
       next(error)
     }
   }
+
+  async getServicesList(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await searchService.getServicesList({
+          searchQuery: req.query.searchQuery,
+          limit: req.query.limit,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const searchController = new SearchController()

@@ -4,5 +4,7 @@ declare module 'express' {
   export interface Request {
     token?: { [key: string]: any }
     user?: { [key: string]: any }
+    file?: any
+    files?: any
   }
 }
