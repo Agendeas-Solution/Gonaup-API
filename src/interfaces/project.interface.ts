@@ -8,5 +8,6 @@ export interface saveClientProjectDetailInterface {
   projectDuration: number
   englishLevel: number
   assignedUser: number
+  companyId: number
   userId: number
 }

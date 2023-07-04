@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"jenish@gmail.com\",\n    \"password\": \"jenish@123\"\n}",
+							"raw": "{\n    \"email\": \"jenishpatel1@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenishpatel@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live:123\",\n    \"linkedinProfile\": \"http\",\n    \"countryId\": 1,\n    \"countryName\": \"India\",\n    \"stateId\": 2,\n    \"stateName\": \"Gujarat\",\n    \"cityId\": 3,\n    \"cityName\": \"Rajkot\"\n}",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenishpatel1@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenish10@gmail.com\",\n    \"password\": \"jenish@820\",\n    \"address\": \"Rajkot\",\n    \"skypeId\": \"live;\",\n    \"englishLevel\": 0,\n    \"hourlyRate\": 14,\n    \"freelanceProfile\": \"https\",\n    \"linkedinProfile\": \"https\",\n    \"githubProfile\": \"https\",\n    \"countryId\": 1,\n    \"countryName\": \"India\",\n    \"countryCode\" : \"IN\",\n    \"stateId\": 2,\n    \"stateName\": \"Gujarat\",\n    \"stateCode\" : \"GJ\",\n    \"cityId\": 3,\n    \"cityName\": \"Rajkot\"\n}",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenish10@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -99,6 +99,572 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Freelancer Education",
+					"item": [
+						{
+							"name": "Add Freelancer Education",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"school\": \"Darshan\",\n    \"degree\": \"Bachelor\",\n    \"studyIn\": \"Computer\",\n    \"description\": \"Software Eng.\",\n    \"dateFrom\": \"2018\",\n    \"dateTo\": \"2022\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/education",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"education"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Freelancer Education By Id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"school\": \"Darshan\",\n    \"degree\": \"Bachelor\",\n    \"studyIn\": \"Computer\",\n    \"description\": \"Software Engineering\",\n    \"dateFrom\": \"2018\",\n    \"dateTo\": \"2022\",\n    \"educationId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/education",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"education"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Education List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/education/list",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"education",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Education Detail By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/education?educationId=2",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"education"
+									],
+									"query": [
+										{
+											"key": "educationId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Freelancer Education By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"educationId\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/education",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"education"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Freelancer Experience",
+					"item": [
+						{
+							"name": "Add Freelancer Experience",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Sr. Software Dev\",\n    \"company\": \"Agn\",\n    \"countryId\": 99,\n    \"countryName\": \"India\",\n    \"countryCode\": \"IN\",\n    \"isWorking\" : false,\n    \"cityName\": \"Rajkot\",\n    \"workingFrom\": \"2022-02-02\",\n    \"workgingTo\": \"2022-06-02\",\n    \"description\": \"I'm Good Dev\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/experience",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Freelancer Experience By Id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Sr. Software Developer\",\n    \"company\": \"Agn\",\n    \"countryId\": 99,\n    \"countryName\": \"India\",\n    \"countryCode\": \"IN\",\n    \"isWorking\" : false,\n    \"cityName\": \"Rajkot\",\n    \"workingFrom\": \"2022-02-02\",\n    \"workgingTo\": \"2022-06-02\",\n    \"description\": \"I'm Good Dev\",\n    \"experienceId\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/experience",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Experience List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/experience/list",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"experience",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Experience Details By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/experience?experienceId=2",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"experience"
+									],
+									"query": [
+										{
+											"key": "experienceId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Freelancer Experience By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"experienceId\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/experience",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Freelancer Project",
+					"item": [
+						{
+							"name": "Add Freelancer Projects",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "The Hero Projects",
+											"type": "text"
+										},
+										{
+											"key": "projectUrl",
+											"value": "https",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "The Hero Project: For Fashion Clothes Sells Management",
+											"type": "text"
+										},
+										{
+											"key": "skills",
+											"value": "1,2,3,4",
+											"type": "text"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2022-02-03",
+											"type": "text"
+										},
+										{
+											"key": "dateTo",
+											"value": "2023-02-02",
+											"type": "text"
+										},
+										{
+											"key": "portfolio_image",
+											"type": "file",
+											"src": "/Users/jenishsmacbook/Downloads/user-dc8dda2e-bdf2-45ec-ada5-7a55107cdb9f (1).jpeg",
+											"disabled": true
+										},
+										{
+											"key": "portfolio_image",
+											"type": "file",
+											"src": "/Users/jenishsmacbook/Downloads/image-d26f891d-d467-41ce-9eb0-80783517afdd.jpg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/project",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Freelancer Experience By Id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "The-Dron-Projects",
+											"type": "text"
+										},
+										{
+											"key": "projectUrl",
+											"value": "https",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "The Dron Project: For Dron Sells Management",
+											"type": "text"
+										},
+										{
+											"key": "skills",
+											"value": "1,2,3,4",
+											"type": "text"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2022-02-03",
+											"type": "text"
+										},
+										{
+											"key": "dateTo",
+											"value": "2023-02-02",
+											"type": "text"
+										},
+										{
+											"key": "projectId",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "portfolio_image",
+											"type": "file",
+											"src": "/Users/jenishsmacbook/Downloads/iphone-14-pro_overview__3dn6st99cpea_og.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/project",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"project"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Project List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/project/list",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"project",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Freelancer Project Details By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/project?projectId=3",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"project"
+									],
+									"query": [
+										{
+											"key": "projectId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Freelancer Project By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{authToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"projectId\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localUrl}}/user/freelancer/project",
+									"host": [
+										"{{localUrl}}"
+									],
+									"path": [
+										"user",
+										"freelancer",
+										"project"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Get User Profile",
 					"request": {
 						"method": "GET",
@@ -122,41 +688,7 @@
 					"response": []
 				},
 				{
-					"name": "Save Freelancer's Experience",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"frameworkId\": 1,\n    \"experiencedYears\": 3,\n    \"projectLinks\": [],\n    \"description\": \"test\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localUrl}}/user/freelancer/experience",
-							"host": [
-								"{{localUrl}}"
-							],
-							"path": [
-								"user",
-								"freelancer",
-								"experience"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Freelancer Experience List",
+					"name": "Get Freelancer Work Details",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -167,24 +699,48 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/user/freelancer/experience/list",
+							"raw": "{{localUrl}}/user/freelancer/work-details",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
 								"user",
 								"freelancer",
-								"experience",
-								"list"
+								"work-details"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Freelance Experience By Id",
+					"name": "Get Freelacner Signup Steps",
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/steps",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"steps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Freelancer Profile Links",
+					"request": {
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -194,7 +750,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"experienceId\": 2\n}",
+							"raw": "{\n    \"githubProfile\": \"https\",\n    \"linkdinProfile\": \"https\",\n    \"freelanceProfile\" : \"https\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -202,14 +758,211 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/user/freelancer/experience",
+							"raw": "{{localUrl}}/user/freelancer/profile-links",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
 								"user",
 								"freelancer",
-								"experience"
+								"profile-links"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Freelancer Role And Overview",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"professionalRole\": \"Sr. Software Eng.\",\n    \"description\": \"My Description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/role",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Freelancer Skill And Services",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skills\": \"1,2,3\",\n    \"offerServices\": \"1,2,3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/skill",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"skill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Freelancer Hourly Rate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hourlyRate\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/hourly-rate",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"hourly-rate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Freelancer Contact Details",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "contactNumber",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "skypeId",
+									"value": "live:skpe",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "240-street",
+									"type": "text"
+								},
+								{
+									"key": "countryId",
+									"value": "99",
+									"type": "text"
+								},
+								{
+									"key": "countryCode",
+									"value": "IN",
+									"type": "text"
+								},
+								{
+									"key": "countryName",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "stateId",
+									"value": "34",
+									"type": "text"
+								},
+								{
+									"key": "stateCode",
+									"value": "GJ",
+									"type": "text"
+								},
+								{
+									"key": "stateName",
+									"value": "Gujarat",
+									"type": "text"
+								},
+								{
+									"key": "cityId",
+									"value": "39",
+									"type": "text"
+								},
+								{
+									"key": "cityName",
+									"value": "Rajkot",
+									"type": "text"
+								},
+								{
+									"key": "zipCode",
+									"value": "360009",
+									"type": "text"
+								},
+								{
+									"key": "profile_image",
+									"type": "file",
+									"src": "/Users/jenishsmacbook/Downloads/portfolio-ab75155a-3218-41b5-83bf-ed3e588f3067 (1).jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/freelancer/contact-details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"freelancer",
+								"contact-details"
 							]
 						}
 					},
@@ -233,7 +986,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test\",\n    \"budgetType\": 0,\n    \"fixedBudget\": 300,\n    \"projectDuration\": 0,\n    \"englishLevel\": 0\n}",
+							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test\",\n    \"budgetType\": 0,\n    \"fixedBudget\": 300,\n    \"projectDuration\": 0,\n    \"englishLevel\": 0,\n    \"skills\" : \"1,2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -398,6 +1151,38 @@
 								{
 									"key": "searchQuery",
 									"value": "re",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Service List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/search/services/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"search",
+								"services",
+								"list"
+							],
+							"query": [
+								{
+									"key": "searchQuery",
+									"value": "we",
 									"disabled": true
 								}
 							]

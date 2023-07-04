@@ -1,9 +1,8 @@
 import {
-  clientSignupInterface,
-  freelancerSignupInterface,
+  freelancerOrClientSignupInterface,
   loginInterface,
 } from '../interfaces'
-import { MESSAGES } from '../constants'
+import { MESSAGES, USER } from '../constants'
 import bcrypt from 'bcryptjs'
 import { SERVER_CONFIG } from '../config'
 import { authHelper, userHelper } from '../helpers'
@@ -11,7 +10,7 @@ import { BadRequestException, NotFoundException } from '../exceptions'
 import { generateToken } from '../utils/jwt-token.util'
 
 class AuthService {
-  async clientEmailSignup(data: clientSignupInterface) {
+  async clientEmailSignup(data: freelancerOrClientSignupInterface) {
     try {
       const [existedUser] = await userHelper.getUserByEmail(data.email)
 
@@ -20,7 +19,10 @@ class AuthService {
 
       data.password = await bcrypt.hash(data.password, SERVER_CONFIG.HASH_SALT)
 
-      await authHelper.clientEmailSignup(data)
+      await authHelper.freelancerOrClientEmailSignup({
+        ...data,
+        type: USER.TYPE.CLIENT,
+      })
 
       return { message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY }
     } catch (error) {
@@ -29,7 +31,7 @@ class AuthService {
     }
   }
 
-  async freelancerEmailSignup(data: freelancerSignupInterface) {
+  async freelancerEmailSignup(data: freelancerOrClientSignupInterface) {
     try {
       const [existedUser] = await userHelper.getUserByEmail(data.email)
 
@@ -38,7 +40,10 @@ class AuthService {
 
       data.password = await bcrypt.hash(data.password, SERVER_CONFIG.HASH_SALT)
 
-      await authHelper.freelancerEmailSignup(data)
+      await authHelper.freelancerOrClientEmailSignup({
+        ...data,
+        type: USER.TYPE.FREELANCER,
+      })
 
       return { message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY }
     } catch (error) {
@@ -66,7 +71,15 @@ class AuthService {
 
       return {
         message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,
-        data: { token },
+        data: {
+          token,
+          usedDetails: {
+            firstName: existedUser[0].first_name,
+            lastName: existedUser[0].last_name,
+            signupCompleted: existedUser[0].signup_completed,
+            type: existedUser[0].type,
+          },
+        },
       }
     } catch (error) {
       console.log(error)

@@ -15,7 +15,7 @@ class ProjectHelper {
           skills,
           project_duration,
           english_level,
-          user_id
+          company_id
         )
     VALUES 
         (?,?,?,?,?,?,?,?,?)`
@@ -28,7 +28,7 @@ class ProjectHelper {
       data.skills,
       data.projectDuration,
       data.englishLevel,
-      data.userId,
+      data.companyId,
     ])
   }
 
@@ -69,22 +69,22 @@ class ProjectHelper {
     FROM
       projects
     WHERE
-      user_id = ?
+      company_id = ?
       AND deleted_at IS NULL
     ${limitQuery}`
-    return pool.query(findQuery, [data.clientId])
+    return pool.query(findQuery, [data.companyId])
   }
 
-  async getClientProjectsCount(clientId: number) {
+  async getClientProjectsCount(companyId: number) {
     const findQuery = `
     SELECT
       COUNT(id) as total
     FROM
       projects
     WHERE
-      user_id = ?
+      company_id = ?
       AND deleted_at IS NULL`
-    return pool.query(findQuery, [clientId])
+    return pool.query(findQuery, [companyId])
   }
 
   async getFreelancerProjectList(data) {

@@ -7,19 +7,19 @@ import { authController } from '../controllers'
 const authRouter = Router()
 
 authRouter.post(
-  API_URL.CLIENT_EMAIL_SIGNUP,
-  joiValidatorMiddleware(authSchemas.clientEmailSignup),
+  API_URL.CLIENT.EMAIL_SIGNUP,
+  joiValidatorMiddleware(authSchemas.freelancerOrClientEmailSignup),
   authController.clientEmailSignup,
 )
 
 authRouter.post(
-  API_URL.FREELANCER_EMAIL_SIGNUP,
-  joiValidatorMiddleware(authSchemas.freelancerEmailSignup),
+  API_URL.FREELANCER.EMAIL_SIGNUP,
+  joiValidatorMiddleware(authSchemas.freelancerOrClientEmailSignup),
   authController.freelancerEmailSignup,
 )
 
 authRouter.post(
-  API_URL.LOGIN,
+  API_URL.AUTH.LOGIN,
   joiValidatorMiddleware(authSchemas.login),
   authController.login,
 )

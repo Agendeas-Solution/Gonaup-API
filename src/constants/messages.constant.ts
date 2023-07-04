@@ -10,9 +10,13 @@ export const MESSAGES = {
     RECORD_FOUND_SUCCESSFULLY: 'Record found successfully!',
     RECORD_REMOVED_SUCCESSFULLY: 'Record removed successfully!',
     RECORD_SAVED_SUCCESSFULLY: 'Record saved successfully!',
+    RECORD_UPDATE_SUCCESSFULLY: 'Record updated successfully',
     RECORD_NOT_FOUND: 'Record not found!',
     INVALID_EMAIL: 'Invalid Email Address!',
     PROCEED: 'Proceed!',
     NO_TOKEN_SUPPLIED: 'No token supplied',
+  },
+  USER: {
+    SIGNUP_ALREADY_COMPLETED: 'You Already Completed Your Signup',
   },
 }

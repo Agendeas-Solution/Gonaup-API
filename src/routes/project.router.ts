@@ -21,14 +21,14 @@ projectRouter.get(
 )
 
 projectRouter.get(
-  API_URL.CLIENT_PROJECT_LIST,
+  API_URL.CLIENT.PROJECT_LIST,
   joiValidatorMiddleware(projectSchemas.projectList),
   validateTokenMiddleware,
   projectController.getClientProjectList,
 )
 
 projectRouter.get(
-  API_URL.FREELANCER_PROJECT_LIST,
+  API_URL.FREELANCER.ASSIGN_PROJECT_LIST,
   joiValidatorMiddleware(projectSchemas.projectList),
   validateTokenMiddleware,
   projectController.getFreelancerProjectList,
