@@ -67,7 +67,10 @@ class AuthService {
       if (!isMatched)
         throw new BadRequestException(MESSAGES.AUTH.INVALID_EMAIL_PASSWORD)
 
-      const token = generateToken({ userId: existedUser[0].id })
+      const token = generateToken({
+        userId: existedUser[0].id,
+        type: existedUser[0].type,
+      })
 
       return {
         message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,

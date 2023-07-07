@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2023 at 09:06 AM
+-- Generation Time: Jul 07, 2023 at 07:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -53,6 +53,9 @@ INSERT INTO `admin_master` (`id`, `name`, `email`, `password`, `created_at`, `up
 CREATE TABLE `companies` (
   `id` int(11) NOT NULL,
   `company_name` varchar(50) DEFAULT NULL,
+  `position` varchar(100) DEFAULT NULL,
+  `linkdin_profile` varchar(100) DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
   `website` varchar(100) DEFAULT NULL,
   `tageline` varchar(100) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -61,6 +64,13 @@ CREATE TABLE `companies` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`id`, `company_name`, `position`, `linkdin_profile`, `size`, `website`, `tageline`, `description`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES
+(2, 'SkyFort', 'Sr. Software Developer', 'https://linkdin.com', 1, 'https://skypfort.com', NULL, NULL, '2023-07-04 18:14:08', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -98,9 +108,9 @@ CREATE TABLE `freelancer_education` (
   `date_from` int(4) NOT NULL,
   `date_to` int(4) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `deleted_at` datetime DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -108,8 +118,8 @@ CREATE TABLE `freelancer_education` (
 --
 
 INSERT INTO `freelancer_education` (`id`, `school`, `degree`, `study_in`, `description`, `date_from`, `date_to`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Darshan', 'Bachelor', 'Computer', 'Software Engineering', 2018, 2022, 1, '2023-07-02 00:13:30', '2023-07-02 16:23:54', '2023-07-02 16:23:54'),
-(2, 'Darshan', 'Bachelor', 'Computer', 'Software Eng.', 2018, 2022, 1, '2023-07-02 00:13:46', '2023-07-02 18:16:02', NULL);
+(1, 'Darshan', 'Bachelor', 'Computer', 'Software Engineering', 2018, 2022, 1, '2023-07-01 18:43:30', '2023-07-02 10:53:54', '2023-07-02 10:53:54'),
+(2, 'Darshan', 'Bachelor', 'Computer', 'Software Eng.', 2018, 2022, 1, '2023-07-01 18:43:46', '2023-07-02 12:46:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,9 +140,9 @@ CREATE TABLE `freelancer_experience` (
   `working_to` date DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `deleted_at` datetime DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -140,8 +150,8 @@ CREATE TABLE `freelancer_experience` (
 --
 
 INSERT INTO `freelancer_experience` (`id`, `title`, `company`, `country_id`, `country_code`, `country_name`, `city_name`, `is_working`, `working_from`, `working_to`, `description`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Sr. Software Developer', 'Agn', 99, 'IN', 'India', 'Rajkot', 0, '2022-02-02', '2022-06-02', 'I\'m Good Dev', 1, '2023-07-02 16:50:21', '2023-07-02 17:13:00', '2023-07-02 17:13:00'),
-(2, 'Sr. Software Dev', 'Agn', 99, 'IN', 'India', 'Rajkot', 1, '2022-02-02', NULL, 'I\'m Good Dev', 1, '2023-07-02 17:13:21', NULL, NULL);
+(1, 'Sr. Software Developer', 'Agn', 99, 'IN', 'India', 'Rajkot', 0, '2022-02-02', '2022-06-02', 'I\'m Good Dev', 1, '2023-07-02 11:20:21', '2023-07-02 11:43:00', '2023-07-02 11:43:00'),
+(2, 'Sr. Software Dev', 'Agn', 99, 'IN', 'India', 'Rajkot', 1, '2022-02-02', NULL, 'I\'m Good Dev', 1, '2023-07-02 11:43:21', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -159,9 +169,9 @@ CREATE TABLE `freelancer_projects` (
   `date_from` date DEFAULT NULL,
   `date_to` date DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `deleted_at` datetime DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -169,10 +179,10 @@ CREATE TABLE `freelancer_projects` (
 --
 
 INSERT INTO `freelancer_projects` (`id`, `project_image_url`, `title`, `project_url`, `description`, `skills`, `date_from`, `date_to`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'The-Dron-Projects', 'https', 'The Dron Project: For Dron Sells Management ', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-02 17:43:53', '2023-07-02 18:01:00', '2023-07-02 18:01:00'),
-(2, NULL, 'The Hero Projects', 'https', 'The Hero Project: For Fashion Clothes Sells Management ', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-02 18:00:46', NULL, NULL),
-(3, 'portfolio-3cecc0f5-619b-4284-aed9-d22a0ba20997.png', 'The-Dron-Projects', 'https', 'The Dron Project: For Dron Sells Management', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-04 12:02:42', '2023-07-04 12:18:24', NULL),
-(4, '', 'The Hero Projects', 'https', 'The Hero Project: For Fashion Clothes Sells Management', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-04 12:14:21', NULL, NULL);
+(1, NULL, 'The-Dron-Projects', 'https', 'The Dron Project: For Dron Sells Management ', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-02 12:13:53', '2023-07-02 12:31:00', '2023-07-02 12:31:00'),
+(2, NULL, 'The Hero Projects', 'https', 'The Hero Project: For Fashion Clothes Sells Management ', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-02 12:30:46', NULL, NULL),
+(3, 'portfolio-3cecc0f5-619b-4284-aed9-d22a0ba20997.png', 'The-Dron-Projects', 'https', 'The Dron Project: For Dron Sells Management', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-04 06:32:42', '2023-07-04 06:48:24', NULL),
+(4, '', 'The Hero Projects', 'https', 'The Hero Project: For Fashion Clothes Sells Management', '1,2,3,4', '2022-02-03', '2023-02-02', 1, '2023-07-04 06:44:21', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,17 +196,29 @@ CREATE TABLE `projects` (
   `description` varchar(255) DEFAULT NULL,
   `budget_type` int(11) DEFAULT NULL COMMENT '0=fixed,1=hourly',
   `fixed_budget` int(11) DEFAULT NULL,
-  `hourly_budget` varchar(20) DEFAULT NULL,
+  `min_hourly_budget` int(3) DEFAULT NULL,
+  `max_hourly_budget` int(3) DEFAULT NULL,
   `skills` longtext DEFAULT NULL,
-  `project_duration` int(11) DEFAULT NULL COMMENT '0=less then a month,1= 1 to 3, 2=3to6,3=more than 6',
+  `step_status` int(2) NOT NULL DEFAULT 1,
+  `hour_per_week` int(2) DEFAULT NULL COMMENT '0=not-sure,1=less then 30,2=more then 30',
+  `experience_needed` int(2) DEFAULT NULL COMMENT '0=entry,1=intermediate,2=expert',
+  `project_duration` int(11) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
   `project_status` int(11) DEFAULT 0 COMMENT '0=pending,1=completed',
   `assigned_user` longtext DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
+  `published_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -207,9 +229,9 @@ CREATE TABLE `projects` (
 CREATE TABLE `services` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `deleted_at` int(11) DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -217,7 +239,7 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Web Development', '2023-07-03 11:42:06', NULL, NULL);
+(1, 'Web Development', '2023-07-03 06:12:06', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -393,7 +415,7 @@ ALTER TABLE `admin_master`
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `frameworks`
@@ -423,7 +445,7 @@ ALTER TABLE `freelancer_projects`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `services`

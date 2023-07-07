@@ -3,7 +3,7 @@ import { projectService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
 class ProjectController {
-  async saveClientProjectDetails(
+  async saveOrUpdateProjectTitleAndDesc(
     req: Request,
     res: Response,
     next: NextFunction,
@@ -11,9 +11,9 @@ class ProjectController {
     try {
       sendSuccessResponse(
         res,
-        await projectService.saveClientProjectDetails({
+        await projectService.saveOrUpdateProjectTitleAndDesc({
           ...req.body,
-          userId: req.token.userId,
+          companyId: req.token.companyId,
         }),
       )
     } catch (error) {
@@ -21,11 +21,60 @@ class ProjectController {
     }
   }
 
-  async getProjectDetailsById(req: Request, res: Response, next: NextFunction) {
+  async updateProjectSkills(req: Request, res: Response, next: NextFunction) {
     try {
       sendSuccessResponse(
         res,
-        await projectService.getProjectDetailsById(Number(req.query.projectId)),
+        await projectService.updateProjectSkills(req.body, req.token.companyId),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async updateProjectBudget(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.updateProjectBudget({
+          ...req.body,
+          companyId: req.token.companyId,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async updateProjectRequirements(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.updateProjectRequirements({
+          ...req.body,
+          companyId: req.token.companyId,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getClientProjectDetailsById(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.getClientProjectDetailsById(
+          Number(req.query.projectId),
+        ),
       )
     } catch (error) {
       next(error)

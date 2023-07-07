@@ -1,13 +1,24 @@
-export interface saveClientProjectDetailInterface {
+export interface saveOrUpdateProjectTitleAndDesc {
   title: string
   description: string
+  companyId: number
+  projectId?: number
+}
+
+export interface updateProjectBudget {
   budgetType: number
   fixedBudget: number
-  hourlyBudget: string
-  skills: string
-  projectDuration: number
-  englishLevel: number
-  assignedUser: number
+  minHourlyBudget: number
+  maxHourlyBudget: number
   companyId: number
-  userId: number
+  projectId: number
+}
+
+export interface updateProjectRequirements {
+  experienceNeeded: number
+  projectDuration: number
+  hourePerWeek: number
+  companyId: number
+  projectId: number
+  isPublished: boolean
 }

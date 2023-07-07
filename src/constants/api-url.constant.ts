@@ -19,6 +19,16 @@ export const API_URL = {
   CLIENT: {
     PROJECT_LIST: '/client/list',
     EMAIL_SIGNUP: '/client/signup',
+    PROJECT_DETAILS: '/details/client',
+  },
+  PROJECT: {
+    TITLE: '/title',
+    SKILL: '/skills',
+    BUDGET: '/budget',
+    REQUIREMENTS: '/requirements',
+  },
+  COMPANY: {
+    DETAILS: '/details',
   },
   LIST: '/list',
   SKILL: '/skill',

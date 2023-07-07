@@ -1,38 +1,111 @@
-import { saveClientProjectDetailInterface } from '../interfaces'
+import {
+  saveOrUpdateProjectTitleAndDesc,
+  updateProjectBudget,
+  updateProjectRequirements,
+} from '../interfaces'
 import { pool } from '../databases'
 import { paginationLimitQuery } from '../utils'
 
 class ProjectHelper {
-  async saveClientProjectDetails(data: saveClientProjectDetailInterface) {
+  async saveProjectTitleAndDesc(data: saveOrUpdateProjectTitleAndDesc) {
     const insertQuery = `
     INSERT INTO projects
         (
           title,
           description,
-          budget_type,
-          fixed_budget,
-          hourly_budget,
-          skills,
-          project_duration,
-          english_level,
-          company_id
+          company_id,
+          step_status
         )
     VALUES 
-        (?,?,?,?,?,?,?,?,?)`
+        (?,?,?,2)`
     return pool.query(insertQuery, [
       data.title,
       data.description,
-      data.budgetType,
-      data.fixedBudget,
-      data.hourlyBudget,
-      data.skills,
-      data.projectDuration,
-      data.englishLevel,
       data.companyId,
     ])
   }
 
-  async getProjectDetailsById(projectId: number) {
+  async updateProjectTitleAndDesc(data: saveOrUpdateProjectTitleAndDesc) {
+    const updateQuery = `
+    UPDATE
+      projects 
+    SET 
+      title = ?, 
+      description = ?
+    WHERE
+      company_id = ? 
+      AND id = ?`
+    return pool.query(updateQuery, [
+      data.title,
+      data.description,
+      data.companyId,
+      data.projectId,
+    ])
+  }
+
+  async updateProjectSkills(
+    skills: string,
+    projectId: number,
+    companyId: number,
+  ) {
+    const updateQuery = `
+    UPDATE
+      projects 
+    SET 
+      skills = ?,
+      step_status = 3
+    WHERE
+      company_id = ? 
+      AND id = ?`
+    return pool.query(updateQuery, [skills, companyId, projectId])
+  }
+
+  async updateProjectBudget(data: updateProjectBudget) {
+    const updateQuery = `
+    UPDATE
+      projects 
+    SET 
+      budget_type = ?,
+      fixed_budget = ?,
+      min_hourly_budget = ?,
+      max_hourly_budget = ?,
+      step_status = 4
+    WHERE
+      company_id = ? 
+      AND id = ?`
+    return pool.query(updateQuery, [
+      data.budgetType,
+      data.fixedBudget,
+      data.minHourlyBudget,
+      data.maxHourlyBudget,
+      data.companyId,
+      data.projectId,
+    ])
+  }
+
+  async updateProjectRequirements(data: updateProjectRequirements) {
+    const updateQuery = `
+    UPDATE
+      projects 
+    SET 
+      experience_needed = ?,
+      project_duration = ?,
+      hour_per_week = ?,
+      step_status = 5
+      ${data.isPublished ? ',published_at = now()' : ''}
+    WHERE
+      company_id = ? 
+      AND id = ?`
+    return pool.query(updateQuery, [
+      data.experienceNeeded,
+      data.projectDuration,
+      data.hourePerWeek,
+      data.companyId,
+      data.projectId,
+    ])
+  }
+
+  async getClientProjectDetailsById(projectId: number) {
     const findQuery = `
     SELECT
       id,
@@ -40,13 +113,12 @@ class ProjectHelper {
       description,
       budget_type,
       fixed_budget,
-      hourly_budget,
+      min_hourly_budget,
+      max_hourly_budget,
       skills,
       project_duration,
-      english_level,
-      project_status,
-      assigned_user,
-      created_at
+      experience_needed,
+      hour_per_week
     FROM
       projects
     WHERE
@@ -64,7 +136,8 @@ class ProjectHelper {
       title,
       description,
       fixed_budget,
-      hourly_budget,
+      min_hourly_budget,
+      max_hourly_budget,
       project_duration
     FROM
       projects
@@ -96,7 +169,8 @@ class ProjectHelper {
       title,
       description,
       fixed_budget,
-      hourly_budget,
+      min_hourly_budget,
+      max_hourly_budget,
       project_duration
     FROM
       projects
