@@ -1,5 +1,5 @@
 import { validateToken } from '../utils/jwt-token.util'
-import { MESSAGES } from '../constants'
+import { MESSAGES, USER } from '../constants'
 import { UnauthorizedException } from '../exceptions'
 import { NextFunction, Request, Response } from 'express'
 
@@ -13,7 +13,9 @@ export function validateTokenMiddleware(
       throw new UnauthorizedException(MESSAGES.COMMON_MESSAGE.NO_TOKEN_SUPPLIED)
 
     const response: any = validateToken(req.headers.authorization)
-    if (!response.userId) {
+    if (response.type === USER.TYPE.FREELANCER && !response.userId) {
+      throw new UnauthorizedException('Unauthorized!')
+    } else if (response.type === USER.TYPE.CLIENT && !response.companyId) {
       throw new UnauthorizedException('Unauthorized!')
     }
     req.token = response

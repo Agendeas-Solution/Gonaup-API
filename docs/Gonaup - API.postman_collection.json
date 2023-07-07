@@ -974,7 +974,7 @@
 			"name": "Projects",
 			"item": [
 				{
-					"name": "Save Project",
+					"name": "Save Project Title And Description",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -986,7 +986,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test\",\n    \"budgetType\": 0,\n    \"fixedBudget\": 300,\n    \"projectDuration\": 0,\n    \"englishLevel\": 0,\n    \"skills\" : \"1,2\"\n}",
+							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test 2\",\n    \"projectId\" : 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -994,19 +994,119 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/project",
+							"raw": "{{localUrl}}/project/title",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"project"
+								"project",
+								"title"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Project Detail By Id",
+					"name": "Update Project Skillls",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"skills\": \"1,2,3\",\n    \"projectId\" : 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/skills",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project Budget",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"budgetType\": 0,\n    \"fixedBudget\": 150,\n    \"maxHourlyBudget\": 12,\n    \"projectId\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/budget",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"budget"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Project Requirements",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"experienceNeeded\": 1,\n    \"projectDuration\": 1,\n    \"hourePerWeek\": 1,\n    \"projectId\": 2,\n    \"isPublished\" : true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/requirements",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"requirements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Project Detail By Id",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1017,17 +1117,19 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/project?projectId=1",
+							"raw": "{{localUrl}}/project/details/client?projectId=2",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"project"
+								"project",
+								"details",
+								"client"
 							],
 							"query": [
 								{
 									"key": "projectId",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -1191,6 +1293,44 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Save Company Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyName\": \"SkyFort\",\n    \"position\": \"Sr. Software Developer\",\n    \"website\": \"https://skypfort.com\",\n    \"linkdinProfile\": \"https://linkdin.com\",\n    \"size\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/company/details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"company",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1221,7 +1361,7 @@
 		},
 		{
 			"key": "authToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NjkxNjE1N30.2yib9ebMfHB7kMluHv1YBi-X1yK2rnHmO_FLpBxptgk",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImNvbXBhbnlJZCI6MiwidHlwZSI6MCwiaWF0IjoxNjg4NDk0NDQ4fQ._eo860YOtJv3Bu1o6W3_PnOBAwZDpe4s9J-J2P8VbQI",
 			"type": "string"
 		}
 	]

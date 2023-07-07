@@ -7,17 +7,38 @@ import { API_URL } from '../constants'
 const projectRouter = Router()
 
 projectRouter.post(
-  '/',
-  joiValidatorMiddleware(projectSchemas.saveProject),
+  API_URL.PROJECT.TITLE,
+  joiValidatorMiddleware(projectSchemas.saveOrUpdateProjectTitleAndDesc),
   validateTokenMiddleware,
-  projectController.saveClientProjectDetails,
+  projectController.saveOrUpdateProjectTitleAndDesc,
+)
+
+projectRouter.put(
+  API_URL.PROJECT.SKILL,
+  joiValidatorMiddleware(projectSchemas.updateProjectSkills),
+  validateTokenMiddleware,
+  projectController.updateProjectSkills,
+)
+
+projectRouter.put(
+  API_URL.PROJECT.BUDGET,
+  joiValidatorMiddleware(projectSchemas.updateProjectBudget),
+  validateTokenMiddleware,
+  projectController.updateProjectBudget,
+)
+
+projectRouter.put(
+  API_URL.PROJECT.REQUIREMENTS,
+  joiValidatorMiddleware(projectSchemas.updateProjectRequirements),
+  validateTokenMiddleware,
+  projectController.updateProjectRequirements,
 )
 
 projectRouter.get(
-  '/',
+  API_URL.CLIENT.PROJECT_DETAILS,
   joiValidatorMiddleware(projectSchemas.projectDetails),
   validateTokenMiddleware,
-  projectController.getProjectDetailsById,
+  projectController.getClientProjectDetailsById,
 )
 
 projectRouter.get(

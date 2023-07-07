@@ -634,6 +634,20 @@ class UserHelper {
     `
     return pool.query(updateQuery, [userId])
   }
+
+  getUserTypeById(userId: number) {
+    const findQuery = `
+    SELECT
+      id,
+      type
+    FROM
+      user_master
+    WHERE
+      id = ?
+      AND deleted_at IS NULL
+    `
+    return pool.query(findQuery, [userId])
+  }
 }
 
 export const userHelper = new UserHelper()

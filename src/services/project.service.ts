@@ -1,14 +1,27 @@
-import { companyHelper, projectHelper } from '../helpers'
+import { projectHelper, userHelper } from '../helpers'
 import { MESSAGES } from '../constants'
-import { saveClientProjectDetailInterface } from '../interfaces'
+import {
+  saveOrUpdateProjectTitleAndDesc,
+  updateProjectBudget,
+  updateProjectRequirements,
+} from '../interfaces'
 import { NotFoundException } from '../exceptions'
 
 class ProjectService {
-  async saveClientProjectDetails(data: saveClientProjectDetailInterface) {
+  async saveOrUpdateProjectTitleAndDesc(data: saveOrUpdateProjectTitleAndDesc) {
     try {
-      await projectHelper.saveClientProjectDetails(data)
+      let projectId
+      if (data.projectId) {
+        await projectHelper.updateProjectTitleAndDesc(data)
+      } else {
+        const [project] = await projectHelper.saveProjectTitleAndDesc(data)
+        projectId = project['insertId']
+      }
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
+        data: {
+          projectId,
+        },
       }
     } catch (error) {
       console.log(error)
@@ -16,15 +29,62 @@ class ProjectService {
     }
   }
 
-  async getProjectDetailsById(projectId: number) {
+  async updateProjectSkills(data, companyId: number) {
     try {
-      const [projectDetail] = await projectHelper.getProjectDetailsById(
+      await projectHelper.updateProjectSkills(
+        data.skills,
+        data.projectId,
+        companyId,
+      )
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async updateProjectBudget(data: updateProjectBudget) {
+    try {
+      await projectHelper.updateProjectBudget(data)
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async updateProjectRequirements(data: updateProjectRequirements) {
+    try {
+      await projectHelper.updateProjectRequirements(data)
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async getClientProjectDetailsById(projectId: number) {
+    try {
+      const [projectDetail] = await projectHelper.getClientProjectDetailsById(
         projectId,
       )
 
       if (!projectDetail[0])
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
+      if (projectDetail[0].skills) {
+        const [skillList] = await userHelper.getSkillListByIds(
+          projectDetail[0].skills,
+        )
+
+        projectDetail[0].skills = skillList
+      }
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: projectDetail[0],

@@ -5,10 +5,24 @@ class CompanyHelper {
   async saveCompanyDetails(data: saveCompanyDetailsInterface) {
     const insertQuery = `
     INSERT INTO companies
-        (company_name,user_id)
+        (
+          company_name,
+          position,
+          website,
+          linkdin_profile,
+          size,
+          user_id
+        )
     VALUES 
-        (?,?)`
-    return pool.query(insertQuery, [data.companyName, data.userId])
+        (?,?,?,?,?,?)`
+    return pool.query(insertQuery, [
+      data.companyName,
+      data.position,
+      data.website,
+      data.linkdinProfile,
+      data.size,
+      data.userId,
+    ])
   }
 
   async getCompanyDetailByClientId(clientId: number) {
