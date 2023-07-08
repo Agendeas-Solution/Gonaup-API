@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 07, 2023 at 07:30 AM
+-- Generation Time: Jul 08, 2023 at 07:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -161,11 +161,11 @@ INSERT INTO `freelancer_experience` (`id`, `title`, `company`, `country_id`, `co
 
 CREATE TABLE `freelancer_projects` (
   `id` int(11) NOT NULL,
-  `project_image_url` text DEFAULT NULL,
+  `project_image_url` varchar(255) DEFAULT NULL,
   `title` varchar(50) NOT NULL,
   `project_url` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `skills` text DEFAULT NULL,
+  `skills` varchar(100) DEFAULT NULL,
   `date_from` date DEFAULT NULL,
   `date_to` date DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -198,14 +198,14 @@ CREATE TABLE `projects` (
   `fixed_budget` int(11) DEFAULT NULL,
   `min_hourly_budget` int(3) DEFAULT NULL,
   `max_hourly_budget` int(3) DEFAULT NULL,
-  `skills` longtext DEFAULT NULL,
+  `skills` varchar(100) DEFAULT NULL,
   `step_status` int(2) NOT NULL DEFAULT 1,
   `hour_per_week` int(2) DEFAULT NULL COMMENT '0=not-sure,1=less then 30,2=more then 30',
   `experience_needed` int(2) DEFAULT NULL COMMENT '0=entry,1=intermediate,2=expert',
   `project_duration` int(11) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
   `project_status` int(11) DEFAULT 0 COMMENT '0=pending,1=completed',
-  `assigned_user` longtext DEFAULT NULL,
+  `assigned_user` varchar(100) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   `published_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
@@ -218,7 +218,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL);
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL),
+(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, NULL, '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -308,11 +309,11 @@ CREATE TABLE `user_master` (
   `zip_code` int(11) DEFAULT NULL,
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
   `hourly_rate` int(11) DEFAULT NULL,
-  `freelance_profile` longtext DEFAULT NULL,
+  `freelance_profile` varchar(150) DEFAULT NULL,
   `linkdin_profile` varchar(150) DEFAULT NULL,
   `github_profile` varchar(150) DEFAULT NULL,
-  `services_offer` text DEFAULT NULL,
-  `skills` text DEFAULT NULL,
+  `services_offer` varchar(150) DEFAULT NULL,
+  `skills` varchar(150) DEFAULT NULL,
   `signup_completed` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
@@ -445,7 +446,7 @@ ALTER TABLE `freelancer_projects`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `services`
