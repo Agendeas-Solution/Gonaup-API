@@ -6,6 +6,7 @@ import {
   updateProjectRequirements,
 } from '../interfaces'
 import { NotFoundException } from '../exceptions'
+import { FieldPacket, RowDataPacket } from 'mysql2'
 
 class ProjectService {
   async saveOrUpdateProjectTitleAndDesc(data: saveOrUpdateProjectTitleAndDesc) {
@@ -97,19 +98,31 @@ class ProjectService {
 
   async getClientProjectList(data) {
     try {
-      const [[projectCount], projectList] = await Promise.all([
-        projectHelper.getClientProjectsCount(data.companyId),
+      const [[projectCount], [projectRecords]] = await Promise.all([
+        projectHelper.getClientProjectsCount(data),
         projectHelper.getClientProjectList(data),
       ])
 
+      const projectList = projectRecords as [RowDataPacket[][], FieldPacket[]]
+
       if (!projectCount[0].total)
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
+
+      for (const project of projectList) {
+        if (project['skills']) {
+          const [skillList] = (await userHelper.getSkillListByIds(
+            project['skills'],
+          )) as [RowDataPacket[][], FieldPacket[]]
+
+          project['skills'] = skillList.map(s => s['name']).toString()
+        }
+      }
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
-          projectList: projectList[0],
+          projectList: projectList,
         },
       }
     } catch (error) {
