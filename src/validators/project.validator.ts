@@ -45,7 +45,15 @@ export const projectSchemas = {
     }).required(),
   }).unknown(),
 
-  projectList: Joi.object({
+  clientProjectList: Joi.object({
+    query: Joi.object({
+      page: Joi.number(),
+      size: Joi.number(),
+      isDraft: Joi.boolean(),
+    }).required(),
+  }).unknown(),
+
+  freelancerProjectList: Joi.object({
     query: Joi.object({
       page: Joi.number(),
       size: Joi.number(),

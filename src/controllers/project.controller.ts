@@ -87,7 +87,7 @@ class ProjectController {
         res,
         await projectService.getClientProjectList({
           ...req.query,
-          clientId: req.token.userId,
+          companyId: req.token.companyId,
         }),
       )
     } catch (error) {

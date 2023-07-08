@@ -43,14 +43,14 @@ projectRouter.get(
 
 projectRouter.get(
   API_URL.CLIENT.PROJECT_LIST,
-  joiValidatorMiddleware(projectSchemas.projectList),
+  joiValidatorMiddleware(projectSchemas.clientProjectList),
   validateTokenMiddleware,
   projectController.getClientProjectList,
 )
 
 projectRouter.get(
   API_URL.FREELANCER.ASSIGN_PROJECT_LIST,
-  joiValidatorMiddleware(projectSchemas.projectList),
+  joiValidatorMiddleware(projectSchemas.freelancerProjectList),
   validateTokenMiddleware,
   projectController.getFreelancerProjectList,
 )

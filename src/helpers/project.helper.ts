@@ -118,7 +118,8 @@ class ProjectHelper {
       skills,
       project_duration,
       experience_needed,
-      hour_per_week
+      hour_per_week,
+      project_status
     FROM
       projects
     WHERE
@@ -138,17 +139,20 @@ class ProjectHelper {
       fixed_budget,
       min_hourly_budget,
       max_hourly_budget,
-      project_duration
+      project_duration,
+      skills,
+      created_at
     FROM
       projects
     WHERE
       company_id = ?
+      AND published_at ${data.isDraft === 'true' ? 'is NULL' : 'is NOT NULL'}
       AND deleted_at IS NULL
     ${limitQuery}`
     return pool.query(findQuery, [data.companyId])
   }
 
-  async getClientProjectsCount(companyId: number) {
+  async getClientProjectsCount(data) {
     const findQuery = `
     SELECT
       COUNT(id) as total
@@ -156,8 +160,9 @@ class ProjectHelper {
       projects
     WHERE
       company_id = ?
+      AND published_at ${data.isDraft === 'true' ? 'is NULL' : 'is NOT NULL'}
       AND deleted_at IS NULL`
-    return pool.query(findQuery, [companyId])
+    return pool.query(findQuery, [data.companyId])
   }
 
   async getFreelancerProjectList(data) {
