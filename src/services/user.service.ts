@@ -11,7 +11,7 @@ import {
   updateFreelancerSkillAndServices,
 } from '../interfaces'
 import { FieldPacket, RowDataPacket } from 'mysql2'
-import { getMultiImgArray } from '../utils'
+import { getMultiImgArray, getServiceList, getSkillList } from '../utils'
 
 class UserService {
   async getUserProfile(userId: number) {
@@ -348,11 +348,7 @@ class UserService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       if (projectDetail[0].skills) {
-        const [skillList] = (await userHelper.getSkillListByIds(
-          projectDetail[0].skills,
-        )) as [RowDataPacket[][], FieldPacket[]]
-
-        projectDetail[0].skills = skillList
+        projectDetail[0].skills = await getSkillList(projectDetail[0], 'skills')
       }
 
       if (projectDetail[0]['project_image_url']) {
@@ -457,19 +453,14 @@ class UserService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       if (workDetails[0].services_offer) {
-        const [serviceList] = (await userHelper.getServiceListByIds(
-          workDetails[0].services_offer,
-        )) as [RowDataPacket[][], FieldPacket[]]
-
-        workDetails[0].services_offer = serviceList
+        workDetails[0].services_offer = await getServiceList(
+          workDetails[0],
+          'services_offer',
+        )
       }
 
       if (workDetails[0].skills) {
-        const [skillList] = (await userHelper.getSkillListByIds(
-          workDetails[0].skills,
-        )) as [RowDataPacket[][], FieldPacket[]]
-
-        workDetails[0].skills = skillList
+        workDetails[0].skills = await getSkillList(workDetails[0], 'skills')
       }
 
       return {

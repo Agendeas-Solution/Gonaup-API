@@ -7,6 +7,7 @@ import {
 } from '../interfaces'
 import { NotFoundException } from '../exceptions'
 import { FieldPacket, RowDataPacket } from 'mysql2'
+import { getSkillList } from '../utils'
 
 class ProjectService {
   async saveOrUpdateProjectTitleAndDesc(data: saveOrUpdateProjectTitleAndDesc) {
@@ -80,11 +81,7 @@ class ProjectService {
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
 
       if (projectDetail[0].skills) {
-        const [skillList] = await userHelper.getSkillListByIds(
-          projectDetail[0].skills,
-        )
-
-        projectDetail[0].skills = skillList
+        projectDetail[0].skills = await getSkillList(projectDetail[0], 'skills')
       }
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
@@ -110,11 +107,7 @@ class ProjectService {
 
       for (const project of projectList) {
         if (project['skills']) {
-          const [skillList] = (await userHelper.getSkillListByIds(
-            project['skills'],
-          )) as [RowDataPacket[][], FieldPacket[]]
-
-          project['skills'] = skillList.map(s => s['name']).toString()
+          project['skills'] = await getSkillList(project, 'skills', true)
         }
       }
 

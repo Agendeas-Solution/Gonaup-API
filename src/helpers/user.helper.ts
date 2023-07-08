@@ -477,32 +477,6 @@ class UserHelper {
     return pool.query(findQuery, [userId])
   }
 
-  async getSkillListByIds(skillIds: string) {
-    const findQuery = `
-    SELECT
-      id,
-      name
-    FROM
-      skills
-    WHERE
-      id IN (${skillIds}) 
-      AND deleted_at IS NULL`
-    return pool.query(findQuery)
-  }
-
-  async getServiceListByIds(serviceIds: string) {
-    const findQuery = `
-    SELECT
-      id,
-      name
-    FROM
-      services
-    WHERE
-      id IN (${serviceIds}) 
-      AND deleted_at IS NULL`
-    return pool.query(findQuery)
-  }
-
   updateFreelancerRole(data: updateFreelancerRole) {
     const updateQuery = `
     UPDATE
