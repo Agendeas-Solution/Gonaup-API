@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 08, 2023 at 07:44 AM
+-- Generation Time: Jul 10, 2023 at 07:23 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -199,6 +199,7 @@ CREATE TABLE `projects` (
   `min_hourly_budget` int(3) DEFAULT NULL,
   `max_hourly_budget` int(3) DEFAULT NULL,
   `skills` varchar(100) DEFAULT NULL,
+  `service_id` int(11) DEFAULT NULL,
   `step_status` int(2) NOT NULL DEFAULT 1,
   `hour_per_week` int(2) DEFAULT NULL COMMENT '0=not-sure,1=less then 30,2=more then 30',
   `experience_needed` int(2) DEFAULT NULL COMMENT '0=entry,1=intermediate,2=expert',
@@ -217,9 +218,9 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL),
-(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 5, 1, 1, 1, NULL, 0, NULL, 2, NULL, '2023-07-05 06:10:03', '2023-07-06 06:29:08', NULL);
+INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-10 05:15:24', NULL),
+(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, NULL, 2, NULL, '2023-07-05 06:10:03', '2023-07-10 05:19:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -376,7 +377,8 @@ ALTER TABLE `freelancer_projects`
 --
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_company_id` (`company_id`);
+  ADD KEY `fk_company_id` (`company_id`),
+  ADD KEY `fk_project_service_id` (`service_id`);
 
 --
 -- Indexes for table `services`
@@ -504,7 +506,8 @@ ALTER TABLE `freelancer_projects`
 -- Constraints for table `projects`
 --
 ALTER TABLE `projects`
-  ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+  ADD CONSTRAINT `fk_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
+  ADD CONSTRAINT `fk_project_service_id` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

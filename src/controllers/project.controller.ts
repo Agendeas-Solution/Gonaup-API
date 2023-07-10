@@ -21,11 +21,18 @@ class ProjectController {
     }
   }
 
-  async updateProjectSkills(req: Request, res: Response, next: NextFunction) {
+  async updateProjectSkillsAndService(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       sendSuccessResponse(
         res,
-        await projectService.updateProjectSkills(req.body, req.token.companyId),
+        await projectService.updateProjectSkillsAndService(
+          req.body,
+          req.token.companyId,
+        ),
       )
     } catch (error) {
       next(error)

@@ -15,9 +15,9 @@ projectRouter.post(
 
 projectRouter.put(
   API_URL.PROJECT.SKILL,
-  joiValidatorMiddleware(projectSchemas.updateProjectSkills),
+  joiValidatorMiddleware(projectSchemas.updateProjectSkillsAndService),
   validateTokenMiddleware,
-  projectController.updateProjectSkills,
+  projectController.updateProjectSkillsAndService,
 )
 
 projectRouter.put(

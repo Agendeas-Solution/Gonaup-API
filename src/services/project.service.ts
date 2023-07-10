@@ -31,10 +31,11 @@ class ProjectService {
     }
   }
 
-  async updateProjectSkills(data, companyId: number) {
+  async updateProjectSkillsAndService(data, companyId: number) {
     try {
-      await projectHelper.updateProjectSkills(
+      await projectHelper.updateProjectSkillsAndService(
         data.skills,
+        data.serviceId,
         data.projectId,
         companyId,
       )

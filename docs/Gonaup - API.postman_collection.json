@@ -1007,7 +1007,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Project Skillls",
+					"name": "Update Project Skillls And Services",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1019,7 +1019,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"skills\": \"1,2,3\",\n    \"projectId\" : 2\n}",
+							"raw": "{\n    \"skills\": \"1,2,3\",\n    \"serviceId\" : 1,\n    \"projectId\" : 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1160,7 +1160,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/project/client/list",
+							"raw": "{{localUrl}}/project/client/list?isDraft=true",
 							"host": [
 								"{{localUrl}}"
 							],
@@ -1168,6 +1168,12 @@
 								"project",
 								"client",
 								"list"
+							],
+							"query": [
+								{
+									"key": "isDraft",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -1361,7 +1367,7 @@
 		},
 		{
 			"key": "authToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImNvbXBhbnlJZCI6MiwidHlwZSI6MCwiaWF0IjoxNjg4NDk0NDQ4fQ._eo860YOtJv3Bu1o6W3_PnOBAwZDpe4s9J-J2P8VbQI",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInR5cGUiOjAsImlhdCI6MTY4ODgwOTExMX0.zkv28sUdvYcfMhe2YV2iTW42BF4VNUE1JrU7y43XPb8",
 			"type": "string"
 		}
 	]
