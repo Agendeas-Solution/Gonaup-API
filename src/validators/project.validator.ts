@@ -12,9 +12,10 @@ export const projectSchemas = {
     }).required(),
   }).unknown(),
 
-  updateProjectSkills: Joi.object({
+  updateProjectSkillsAndService: Joi.object({
     body: Joi.object({
       skills: Joi.string().required(),
+      serviceId: Joi.number().required(),
       projectId: Joi.number().required(),
     }).required(),
   }).unknown(),

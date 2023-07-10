@@ -43,8 +43,9 @@ class ProjectHelper {
     ])
   }
 
-  async updateProjectSkills(
+  async updateProjectSkillsAndService(
     skills: string,
+    serviceId: number,
     projectId: number,
     companyId: number,
   ) {
@@ -53,11 +54,12 @@ class ProjectHelper {
       projects 
     SET 
       skills = ?,
+      service_id = ?,
       step_status = 3
     WHERE
       company_id = ? 
       AND id = ?`
-    return pool.query(updateQuery, [skills, companyId, projectId])
+    return pool.query(updateQuery, [skills, serviceId, companyId, projectId])
   }
 
   async updateProjectBudget(data: updateProjectBudget) {
@@ -108,7 +110,7 @@ class ProjectHelper {
   async getClientProjectDetailsById(projectId: number) {
     const findQuery = `
     SELECT
-      id,
+      p.id,
       title,
       description,
       budget_type,
@@ -116,15 +118,21 @@ class ProjectHelper {
       min_hourly_budget,
       max_hourly_budget,
       skills,
+      s.id as service_id,
+      s.name as service_name,
       project_duration,
       experience_needed,
       hour_per_week,
       project_status
     FROM
-      projects
+      projects as p
+    LEFT JOIN
+      services as s 
+    ON 
+      p.service_id = s.id
     WHERE
-      id = ?
-      AND deleted_at IS NULL`
+      p.id = ?
+      AND p.deleted_at IS NULL`
     return pool.query(findQuery, [projectId])
   }
 
