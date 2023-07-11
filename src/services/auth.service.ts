@@ -52,6 +52,27 @@ class AuthService {
     }
   }
 
+  async recruiterEmailSignup(data: freelancerOrClientSignupInterface) {
+    try {
+      const [existedUser] = await userHelper.getUserByEmail(data.email)
+
+      if (existedUser[0])
+        throw new BadRequestException(MESSAGES.AUTH.USER_ALREADY_EXISTS)
+
+      data.password = await bcrypt.hash(data.password, SERVER_CONFIG.HASH_SALT)
+
+      await authHelper.freelancerOrClientEmailSignup({
+        ...data,
+        type: USER.TYPE.RECRUITER,
+      })
+
+      return { message: MESSAGES.AUTH.USER_REGISTERD_SUCCESSFULLY }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
   async login(data: loginInterface) {
     try {
       const [existedUser] = await userHelper.getUserByEmail(data.email)

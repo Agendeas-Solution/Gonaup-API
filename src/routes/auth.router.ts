@@ -19,6 +19,12 @@ authRouter.post(
 )
 
 authRouter.post(
+  API_URL.RECRUITER.EMAIL_SIGNUP,
+  joiValidatorMiddleware(authSchemas.freelancerOrClientEmailSignup),
+  authController.recruiterEmailSignup,
+)
+
+authRouter.post(
   API_URL.AUTH.LOGIN,
   joiValidatorMiddleware(authSchemas.login),
   authController.login,
