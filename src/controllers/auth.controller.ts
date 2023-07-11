@@ -22,6 +22,14 @@ class AuthController {
     }
   }
 
+  async recruiterEmailSignup(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(res, await authService.recruiterEmailSignup(req.body))
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       sendSuccessResponse(res, await authService.login(req.body))

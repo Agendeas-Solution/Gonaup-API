@@ -92,6 +92,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Recruiter Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"patel\",\n    \"email\": \"jenish101@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/recruiter/signup",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"recruiter",
+								"signup"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1199,6 +1227,102 @@
 								"project",
 								"freelancer",
 								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job Post",
+			"item": [
+				{
+					"name": "Save Job Post Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobRole\": \"Jr. Software Dev\",\n    \"description\": \"description\",\n    \"skills\": \"1,2\",\n    \"hourlyRate\": 20,\n    \"jobPostId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/job-post/details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"job-post",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recruiter Jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/job-post/recruiter/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"job-post",
+								"recruiter",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Job Post Requirements Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"experienceNeeded\": 1,\n    \"projectDuration\": 1,\n    \"hourePerWeek\": 1,\n    \"jobPostId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/job-post/requirements",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"job-post",
+								"requirements"
 							]
 						}
 					},

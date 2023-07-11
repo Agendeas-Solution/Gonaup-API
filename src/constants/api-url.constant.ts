@@ -30,6 +30,13 @@ export const API_URL = {
   COMPANY: {
     DETAILS: '/details',
   },
+  RECRUITER: {
+    EMAIL_SIGNUP: '/recruiter/signup',
+    JOB_LIST: '/recruiter/list',
+  },
+  JOB_POST: {
+    DETAILS: '/details',
+  },
   LIST: '/list',
   SKILL: '/skill',
   FRAMEWORK: '/framework',

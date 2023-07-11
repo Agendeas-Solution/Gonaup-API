@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 10, 2023 at 07:23 AM
+-- Generation Time: Jul 11, 2023 at 04:59 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -187,6 +187,36 @@ INSERT INTO `freelancer_projects` (`id`, `project_image_url`, `title`, `project_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_post`
+--
+
+CREATE TABLE `job_post` (
+  `id` int(11) NOT NULL,
+  `job_role` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `hourly_rate` int(3) NOT NULL,
+  `skills` varchar(100) DEFAULT NULL,
+  `step_status` int(2) NOT NULL DEFAULT 1,
+  `experience_needed` int(2) DEFAULT NULL COMMENT '	0=entry,1=intermediate,2=expert',
+  `project_duration` int(2) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
+  `hour_per_week` int(2) DEFAULT NULL COMMENT '0=not-sure,1=less then 30,2=more then 30',
+  `project_status` int(1) NOT NULL DEFAULT 0 COMMENT '0=open,1=closed',
+  `company_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `job_post`
+--
+
+INSERT INTO `job_post` (`id`, `job_role`, `description`, `hourly_rate`, `skills`, `step_status`, `experience_needed`, `project_duration`, `hour_per_week`, `project_status`, `company_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Jr. Software Dev', 'description', 20, '1,2', 3, 1, 1, 1, 0, 2, '2023-07-11 05:29:59', '2023-07-11 05:45:52', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `projects`
 --
 
@@ -205,7 +235,7 @@ CREATE TABLE `projects` (
   `experience_needed` int(2) DEFAULT NULL COMMENT '0=entry,1=intermediate,2=expert',
   `project_duration` int(11) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
-  `project_status` int(11) DEFAULT 0 COMMENT '0=pending,1=completed',
+  `project_status` int(11) DEFAULT 0 COMMENT '0=open,1=closed',
   `assigned_user` varchar(100) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   `published_at` datetime DEFAULT NULL,
@@ -294,7 +324,7 @@ CREATE TABLE `user_master` (
   `password` varchar(100) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `contact_number` varchar(15) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL COMMENT '0=freelancer and 1=client',
+  `type` int(11) DEFAULT NULL COMMENT '0=freelancer,1=client,2=recruiter',
   `skype_id` varchar(50) DEFAULT NULL,
   `professional_role` varchar(50) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -303,7 +333,7 @@ CREATE TABLE `user_master` (
   `country_name` varchar(20) DEFAULT NULL,
   `state_id` int(11) DEFAULT NULL,
   `state_name` varchar(20) DEFAULT NULL,
-  `country_code` varchar(10) NOT NULL,
+  `country_code` varchar(10) DEFAULT NULL,
   `state_code` varchar(10) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `city_name` varchar(20) DEFAULT NULL,
@@ -326,7 +356,8 @@ CREATE TABLE `user_master` (
 --
 
 INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `image_url`, `contact_number`, `type`, `skype_id`, `professional_role`, `description`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `country_code`, `state_code`, `city_id`, `city_name`, `zip_code`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `services_offer`, `skills`, `signup_completed`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Jenish', 'patel', 'jenish10@gmail.com', '$2a$11$VordPk3KO15D0dnxIR0ah..TvTL8e3X/SR94NiNSvaLZNBjAF8ogu', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 0, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, '2023-07-01 17:08:17', '2023-07-04 07:01:08', NULL);
+(1, 'Jenish', 'patel', 'jenish10@gmail.com', '$2a$11$VordPk3KO15D0dnxIR0ah..TvTL8e3X/SR94NiNSvaLZNBjAF8ogu', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 0, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, '2023-07-01 17:08:17', '2023-07-04 07:01:08', NULL),
+(2, 'Jenish', 'patel', 'jenish101@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2023-07-10 06:42:50', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -371,6 +402,13 @@ ALTER TABLE `freelancer_experience`
 ALTER TABLE `freelancer_projects`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_freelancer_project_user_id` (`user_id`);
+
+--
+-- Indexes for table `job_post`
+--
+ALTER TABLE `job_post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_job_post_company_id` (`company_id`);
 
 --
 -- Indexes for table `projects`
@@ -445,6 +483,12 @@ ALTER TABLE `freelancer_projects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `job_post`
+--
+ALTER TABLE `job_post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
@@ -472,7 +516,7 @@ ALTER TABLE `timzones`
 -- AUTO_INCREMENT for table `user_master`
 --
 ALTER TABLE `user_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -501,6 +545,12 @@ ALTER TABLE `freelancer_experience`
 --
 ALTER TABLE `freelancer_projects`
   ADD CONSTRAINT `fk_freelancer_project_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_master` (`id`);
+
+--
+-- Constraints for table `job_post`
+--
+ALTER TABLE `job_post`
+  ADD CONSTRAINT `fk_job_post_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
 
 --
 -- Constraints for table `projects`
