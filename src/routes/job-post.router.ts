@@ -7,7 +7,7 @@ import { API_URL } from '../constants'
 const jobPostRouter = Router()
 
 jobPostRouter.post(
-  API_URL.JOB_POST.DETAILS,
+  API_URL.DETAILS,
   joiValidatorMiddleware(jobPostSchema.saveOrUpdateJobPostDetails),
   validateTokenMiddleware,
   jobPostController.saveOrUpdateJobPostDetails,

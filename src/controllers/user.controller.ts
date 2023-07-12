@@ -405,6 +405,24 @@ class UserController {
       next(error)
     }
   }
+
+  async updateUserNameAndEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await userService.updateUserNameAndEmail({
+          ...req.body,
+          userId: req.token.userId,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const userController = new UserController()

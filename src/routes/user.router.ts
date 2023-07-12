@@ -170,4 +170,11 @@ userRouter.put(
   userController.updateFreelancerContactDetails,
 )
 
+userRouter.put(
+  API_URL.DETAILS,
+  validateTokenMiddleware,
+  joiValidatorMiddleware(userSchemas.updateUserNameAndEmail),
+  userController.updateUserNameAndEmail,
+)
+
 export { userRouter }

@@ -9,6 +9,7 @@ import {
   updateFreelancerProfileLinks,
   updateFreelancerRole,
   updateFreelancerSkillAndServices,
+  updateUserNameAndEmail,
 } from '../interfaces'
 import { FieldPacket, RowDataPacket } from 'mysql2'
 import { getMultiImgArray, getServiceList, getSkillList } from '../utils'
@@ -485,6 +486,18 @@ class UserService {
         await userHelper.updateUserSignupStatus(data.userId)
       }
 
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async updateUserNameAndEmail(data: updateUserNameAndEmail) {
+    try {
+      await userHelper.updateUserNameAndEmail(data)
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
       }

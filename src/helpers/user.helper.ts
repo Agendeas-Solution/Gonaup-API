@@ -6,6 +6,7 @@ import {
   updateFreelancerProfileLinks,
   updateFreelancerRole,
   updateFreelancerSkillAndServices,
+  updateUserNameAndEmail,
 } from '../interfaces'
 import { pool } from '../databases'
 import { paginationLimitQuery } from '../utils'
@@ -621,6 +622,26 @@ class UserHelper {
       AND deleted_at IS NULL
     `
     return pool.query(findQuery, [userId])
+  }
+
+  updateUserNameAndEmail(data: updateUserNameAndEmail) {
+    const updateQuery = `
+    UPDATE
+      user_master
+    SET
+      first_name = ?,
+      last_name = ?,
+      email = ?
+    WHERE
+      id = ?
+      AND deleted_at IS NULL
+    `
+    return pool.query(updateQuery, [
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.userId,
+    ])
   }
 }
 

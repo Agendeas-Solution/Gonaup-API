@@ -995,6 +995,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Freelancer Contact Details Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"S\",\n    \"email\": \"jenishpatel1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"details"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

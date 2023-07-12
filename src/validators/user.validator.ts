@@ -162,4 +162,12 @@ export const userSchemas = {
       zipCode: Joi.number(),
     }).required(),
   }).unknown(),
+
+  updateUserNameAndEmail: Joi.object({
+    body: Joi.object({
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
+      email: Joi.string().required(),
+    }).required(),
+  }).unknown(),
 }

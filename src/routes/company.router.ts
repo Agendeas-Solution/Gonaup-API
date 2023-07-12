@@ -7,7 +7,7 @@ import { companyController } from '../controllers'
 const companyRouter = Router()
 
 companyRouter.post(
-  API_URL.COMPANY.DETAILS,
+  API_URL.DETAILS,
   validateTokenMiddleware,
   joiValidatorMiddleware(companySchema.saveCompanyDetails),
   companyController.saveClientProjectDetails,

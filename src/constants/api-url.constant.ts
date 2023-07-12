@@ -27,18 +27,15 @@ export const API_URL = {
     BUDGET: '/budget',
     REQUIREMENTS: '/requirements',
   },
-  COMPANY: {
-    DETAILS: '/details',
-  },
+  COMPANY: {},
   RECRUITER: {
     EMAIL_SIGNUP: '/recruiter/signup',
     JOB_LIST: '/recruiter/list',
   },
-  JOB_POST: {
-    DETAILS: '/details',
-  },
+  JOB_POST: {},
   LIST: '/list',
   SKILL: '/skill',
   FRAMEWORK: '/framework',
   SERVICES: '/services',
+  DETAILS: '/details',
 }

@@ -65,3 +65,10 @@ export interface updateFreelancerContactDetails {
   zipCode: number
   userId: number
 }
+
+export interface updateUserNameAndEmail {
+  firstName: string
+  lastName: string
+  email: string
+  userId: number
+}
