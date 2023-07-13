@@ -36,7 +36,6 @@ export const API_URL = {
   JOB_POST: {},
   LIST: '/list',
   SKILL: '/skill',
-  FRAMEWORK: '/framework',
   SERVICES: '/services',
   DETAILS: '/details',
   PROFILE: '/profile',

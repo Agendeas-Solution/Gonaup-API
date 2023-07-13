@@ -14,13 +14,6 @@ searchRouter.get(
 )
 
 searchRouter.get(
-  API_URL.FRAMEWORK + API_URL.LIST,
-  joiValidatorMiddleware(searchSchemas.searchList),
-  validateTokenMiddleware,
-  searchController.getFrameworkList,
-)
-
-searchRouter.get(
   API_URL.SERVICES + API_URL.LIST,
   joiValidatorMiddleware(searchSchemas.searchList),
   validateTokenMiddleware,

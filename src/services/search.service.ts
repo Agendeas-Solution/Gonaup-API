@@ -24,26 +24,6 @@ class SearchService {
     }
   }
 
-  async getFrameworkList(data) {
-    try {
-      const frameworkList = (await searchHelper.getFrameworkList(
-        data.searchQuery,
-        data.limit,
-      )) as [RowDataPacket[][], FieldPacket[]]
-
-      if (frameworkList && frameworkList[0].length <= 0)
-        throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
-
-      return {
-        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        data: frameworkList[0],
-      }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
-  }
-
   async getServicesList(data) {
     try {
       const serviceList = (await searchHelper.getServicesList(
