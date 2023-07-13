@@ -1399,31 +1399,6 @@
 			"name": "Search",
 			"item": [
 				{
-					"name": "Search Framework List",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{authToken}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{localUrl}}/search/framework/list",
-							"host": [
-								"{{localUrl}}"
-							],
-							"path": [
-								"search",
-								"framework",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Search Skill List",
 					"request": {
 						"method": "GET",
