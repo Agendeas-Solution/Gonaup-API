@@ -9,7 +9,8 @@ import {
   updateUserNameAndEmail,
 } from '../interfaces'
 import { pool } from '../databases'
-import { paginationLimitQuery } from '../utils'
+import { S3_CONFIG } from '../config'
+import { S3 } from '../constants'
 
 class UserHelper {
   async getUserByEmail(email: string) {
@@ -28,31 +29,6 @@ class UserHelper {
         AND deleted_at IS NULL
       LIMIT 1`
     return pool.query(findQuery, [email])
-  }
-
-  async getUserProfile(userId: number) {
-    const findQuery = `
-    SELECT
-      id,
-      first_name,
-      last_name,
-      email,
-      type,
-      contact_number,
-      address,
-      skype_id,
-      english_level,
-      hourly_rate,
-      freelance_profile,
-      linkdin_profile,
-      github_profile
-    FROM
-      user_master
-    WHERE
-      id = ?
-      AND deleted_at IS NULL
-    LIMIT 1`
-    return pool.query(findQuery, [userId])
   }
 
   async getUserDetailForCompleteSignup(userId: number) {
@@ -642,6 +618,42 @@ class UserHelper {
       data.email,
       data.userId,
     ])
+  }
+
+  getUserProfileDetailseById(userId: number, companyId?: number) {
+    const findQuery = `
+    SELECT
+      first_name,
+      last_name,
+      email,
+      concat("${S3_CONFIG.S3_URL + S3.PROFILE}/", image_url) as image_url,
+      contact_number,
+      skype_id,
+      address,
+      country_name,
+      state_name,
+      city_name,
+      zip_code
+      ${
+        !companyId
+          ? `,description,
+      professional_role,
+      english_level,
+      hourly_rate,
+      freelance_profile,
+      linkdin_profile,
+      github_profile,
+      services_offer,
+      skills`
+          : ''
+      }
+    FROM
+      user_master
+    WHERE
+      id = ?
+      AND deleted_at IS NULL
+    `
+    return pool.query(findQuery, [userId])
   }
 }
 

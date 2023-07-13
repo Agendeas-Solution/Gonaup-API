@@ -25,18 +25,20 @@ class CompanyHelper {
     ])
   }
 
-  async getCompanyDetailByClientId(clientId: number) {
+  async getCompanyDetailById(companyId: number) {
     const findQuery = `
     SELECT
-      id,
       company_name,
-      tageline
+      website,
+      size,
+      linkdin_profile,
+      position
     FROM
       companies
     WHERE
-      user_id = ?
+      id = ?
       AND deleted_at IS NULL`
-    return pool.query(findQuery, [clientId])
+    return pool.query(findQuery, [companyId])
   }
 }
 

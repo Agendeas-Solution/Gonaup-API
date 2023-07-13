@@ -704,12 +704,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/user",
+							"raw": "{{localUrl}}/user/profile",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"user"
+								"user",
+								"profile"
 							]
 						}
 					},
@@ -997,7 +998,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Freelancer Contact Details Copy",
+					"name": "Update Freelancer Name and Email",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1186,6 +1187,37 @@
 								"project",
 								"details",
 								"client"
+							],
+							"query": [
+								{
+									"key": "projectId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Freelancer Project Detail By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/project/details/freelancer?projectId=2",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"details",
+								"freelancer"
 							],
 							"query": [
 								{

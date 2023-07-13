@@ -3,17 +3,6 @@ import { userService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
 class UserController {
-  async getUserProfile(req: Request, res: Response, next: NextFunction) {
-    try {
-      sendSuccessResponse(
-        res,
-        await userService.getUserProfile(req.token.userId),
-      )
-    } catch (error) {
-      next(error)
-    }
-  }
-
   async getFreelancerSignupSteps(
     req: Request,
     res: Response,
@@ -418,6 +407,24 @@ class UserController {
           ...req.body,
           userId: req.token.userId,
         }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getUserProfileDetailseById(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await userService.getUserProfileDetailseById(
+          req.token.userId,
+          req.token?.companyId,
+        ),
       )
     } catch (error) {
       next(error)

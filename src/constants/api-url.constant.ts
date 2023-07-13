@@ -15,6 +15,7 @@ export const API_URL = {
     HOURLY_RATE: '/freelancer/hourly-rate',
     WORK_DETAILS: '/freelancer/work-details',
     CONTACT_DETAILS: '/freelancer/contact-details',
+    PROJECT_DETAILS: '/details/freelancer',
   },
   CLIENT: {
     PROJECT_LIST: '/client/list',
@@ -38,4 +39,5 @@ export const API_URL = {
   FRAMEWORK: '/framework',
   SERVICES: '/services',
   DETAILS: '/details',
+  PROFILE: '/profile',
 }
