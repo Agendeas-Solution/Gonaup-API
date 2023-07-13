@@ -119,6 +119,23 @@ class ProjectController {
       next(error)
     }
   }
+
+  async getFreelancerProjectDetailsById(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.getFreelancerProjectDetailsById(
+          Number(req.query.projectId),
+        ),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const projectController = new ProjectController()

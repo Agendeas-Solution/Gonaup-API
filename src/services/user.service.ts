@@ -1,6 +1,6 @@
 import { BadRequestException, NotFoundException } from '../exceptions'
-import { userHelper } from '../helpers'
-import { MESSAGES, S3, TABLE } from '../constants'
+import { companyHelper, userHelper } from '../helpers'
+import { MESSAGES, S3, TABLE, USER } from '../constants'
 import {
   saveFreelancerEducation,
   saveFreelancerExperience,
@@ -15,23 +15,6 @@ import { FieldPacket, RowDataPacket } from 'mysql2'
 import { getMultiImgArray, getServiceList, getSkillList } from '../utils'
 
 class UserService {
-  async getUserProfile(userId: number) {
-    try {
-      const [userDetail] = await userHelper.getUserProfile(userId)
-
-      if (!userDetail[0])
-        throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
-
-      return {
-        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        data: userDetail[0],
-      }
-    } catch (error) {
-      console.log(error)
-      throw error
-    }
-  }
-
   async getFreelancerSignupSteps(userId: number) {
     try {
       const [userDetail] = await userHelper.getUserDetailForCompleteSignup(
@@ -113,7 +96,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        profileLinks: profileLinks[0],
+        data: profileLinks[0],
       }
     } catch (error) {
       console.log(error)
@@ -144,7 +127,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        educationList,
+        data: educationList,
       }
     } catch (error) {
       console.log(error)
@@ -162,7 +145,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        educationDetail: educationDetail[0],
+        data: educationDetail[0],
       }
     } catch (error) {
       console.log(error)
@@ -229,7 +212,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        experienceList,
+        data: experienceList,
       }
     } catch (error) {
       console.log(error)
@@ -250,7 +233,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        experienceDetail: experienceDetail[0],
+        data: experienceDetail[0],
       }
     } catch (error) {
       console.log(error)
@@ -330,7 +313,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        projectList,
+        data: projectList,
       }
     } catch (error) {
       console.log(error)
@@ -362,7 +345,7 @@ class UserService {
       delete projectDetail[0]['project_image_url']
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        projectDetail: projectDetail[0],
+        data: projectDetail[0],
       }
     } catch (error) {
       console.log(error)
@@ -466,7 +449,7 @@ class UserService {
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
-        workDetails: workDetails[0],
+        data: workDetails[0],
       }
     } catch (error) {
       console.log(error)
@@ -500,6 +483,70 @@ class UserService {
       await userHelper.updateUserNameAndEmail(data)
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async getUserProfileDetailseById(userId: number, companyId?: number) {
+    try {
+      const [userDetails] = await userHelper.getUserProfileDetailseById(
+        userId,
+        companyId,
+      )
+
+      if (!userDetails[0])
+        throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
+
+      if (!companyId) {
+        if (userDetails[0].services_offer) {
+          userDetails[0].services_offer = await getServiceList(
+            userDetails[0],
+            'services_offer',
+          )
+        }
+
+        if (userDetails[0].skills) {
+          userDetails[0].skills = await getSkillList(userDetails[0], 'skills')
+        }
+
+        const [[educationList], [experienceList], [projectList]] =
+          await Promise.all([
+            userHelper.getFreelancerEducationList(userId),
+            userHelper.getFreelancerExperienceList(userId),
+            userHelper.getFreelancerProjectList(userId),
+          ])
+
+        const iterableProjectList = projectList as [
+          RowDataPacket[][],
+          FieldPacket[],
+        ]
+
+        for (const project of iterableProjectList) {
+          if (project['project_image_url']) {
+            project['project_image_url'] = getMultiImgArray(
+              project['project_image_url'],
+              S3.PORTFOLIO_FILE,
+            )[0]
+          }
+        }
+
+        userDetails[0].education = educationList
+        userDetails[0].experience = experienceList
+        userDetails[0].projects = iterableProjectList
+      } else {
+        const [companyDetails] = await companyHelper.getCompanyDetailById(
+          companyId,
+        )
+
+        userDetails[0].companyDetails = companyDetails[0]
+      }
+
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
+        data: userDetails[0],
       }
     } catch (error) {
       console.log(error)

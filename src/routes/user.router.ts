@@ -10,8 +10,6 @@ import { API_URL } from '../constants'
 
 const userRouter = Router()
 
-userRouter.get('/', validateTokenMiddleware, userController.getUserProfile)
-
 userRouter.get(
   API_URL.FREELANCER.SIGNUP_STEPS,
   validateTokenMiddleware,
@@ -175,6 +173,12 @@ userRouter.put(
   validateTokenMiddleware,
   joiValidatorMiddleware(userSchemas.updateUserNameAndEmail),
   userController.updateUserNameAndEmail,
+)
+
+userRouter.get(
+  API_URL.PROFILE,
+  validateTokenMiddleware,
+  userController.getUserProfileDetailseById,
 )
 
 export { userRouter }

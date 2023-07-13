@@ -116,7 +116,7 @@ class ProjectService {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
-          projectList: projectList,
+          data: projectList,
         },
       }
     } catch (error) {
@@ -139,8 +139,29 @@ class ProjectService {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
-          projectList: projectList[0],
+          data: projectList[0],
         },
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async getFreelancerProjectDetailsById(projectId: number) {
+    try {
+      const [projectDetail] =
+        await projectHelper.getFreelancerProjectDetailsById(projectId)
+
+      if (!projectDetail[0])
+        throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
+
+      if (projectDetail[0].skills) {
+        projectDetail[0].skills = await getSkillList(projectDetail[0], 'skills')
+      }
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
+        data: projectDetail[0],
       }
     } catch (error) {
       console.log(error)

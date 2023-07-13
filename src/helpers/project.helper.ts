@@ -205,6 +205,35 @@ class ProjectHelper {
       AND deleted_at IS NULL`
     return pool.query(findQuery, [userId])
   }
+
+  async getFreelancerProjectDetailsById(projectId: number) {
+    const findQuery = `
+    SELECT
+      p.id,
+      title,
+      description,
+      budget_type,
+      fixed_budget,
+      min_hourly_budget,
+      max_hourly_budget,
+      skills,
+      s.id as service_id,
+      s.name as service_name,
+      project_duration,
+      experience_needed,
+      hour_per_week,
+      project_status
+    FROM
+      projects as p
+    LEFT JOIN
+      services as s 
+    ON 
+      p.service_id = s.id
+    WHERE
+      p.id = ?
+      AND p.deleted_at IS NULL`
+    return pool.query(findQuery, [projectId])
+  }
 }
 
 export const projectHelper = new ProjectHelper()
