@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2023 at 04:12 PM
+-- Generation Time: Jul 15, 2023 at 09:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -183,6 +183,15 @@ CREATE TABLE `hiring_records` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `hiring_records`
+--
+
+INSERT INTO `hiring_records` (`id`, `status`, `suggested_rate`, `final_rate`, `user_id`, `project_id`, `job_id`, `hired_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 0, NULL, NULL, 1, 2, NULL, NULL, '2023-07-14 14:31:45', NULL, NULL),
+(2, 1, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', '2023-07-14 14:32:32', NULL),
+(3, 1, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -235,6 +244,7 @@ CREATE TABLE `projects` (
   `project_duration` int(11) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
   `english_level` int(11) DEFAULT NULL COMMENT '0=conversational, 1=fluent, 2=bilingual',
   `project_status` int(11) DEFAULT 0 COMMENT '0=open,1=closed',
+  `project_closed_reason` varchar(100) DEFAULT NULL,
   `commission` int(11) NOT NULL DEFAULT 0,
   `hiring_status` int(2) DEFAULT NULL COMMENT '0=invited,1=interested,2=suggested,3=hired',
   `contract_status` int(2) NOT NULL DEFAULT 0 COMMENT '0=pending,1=open,2=closed',
@@ -250,9 +260,9 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `commission`, `hiring_status`, `contract_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 0, NULL, 0, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-10 05:15:24', NULL),
-(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, 0, NULL, 0, NULL, 2, NULL, '2023-07-05 06:10:03', '2023-07-10 05:19:44', NULL);
+INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `project_closed_reason`, `commission`, `hiring_status`, `contract_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 'All positions filled', 99, 1, 1, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-15 07:20:53', NULL),
+(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, NULL, 0, NULL, 0, NULL, 2, NULL, '2023-07-05 06:20:03', '2023-07-14 18:05:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -486,7 +496,7 @@ ALTER TABLE `freelancer_projects`
 -- AUTO_INCREMENT for table `hiring_records`
 --
 ALTER TABLE `hiring_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `job_post`
