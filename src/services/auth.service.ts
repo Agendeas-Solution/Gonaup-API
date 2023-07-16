@@ -5,7 +5,7 @@ import {
 import { MESSAGES, USER } from '../constants'
 import bcrypt from 'bcryptjs'
 import { SERVER_CONFIG } from '../config'
-import { authHelper, userHelper } from '../helpers'
+import { authHelper, companyHelper, userHelper } from '../helpers'
 import { BadRequestException, NotFoundException } from '../exceptions'
 import { generateToken } from '../utils/jwt-token.util'
 
@@ -88,9 +88,19 @@ class AuthService {
       if (!isMatched)
         throw new BadRequestException(MESSAGES.AUTH.INVALID_EMAIL_PASSWORD)
 
+      let companyId
+      if (
+        [USER.TYPE.CLIENT, USER.TYPE.RECRUITER].includes(existedUser[0].type)
+      ) {
+        const [company] = await companyHelper.getCompanyIdByUserId(
+          existedUser[0].id,
+        )
+        companyId = company[0]?.id
+      }
       const token = generateToken({
         userId: existedUser[0].id,
         type: existedUser[0].type,
+        companyId: companyId,
       })
 
       return {

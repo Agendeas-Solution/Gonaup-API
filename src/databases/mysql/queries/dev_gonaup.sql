@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2023 at 09:27 AM
+-- Generation Time: Jul 16, 2023 at 01:27 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -171,7 +171,7 @@ INSERT INTO `freelancer_projects` (`id`, `project_image_url`, `title`, `project_
 
 CREATE TABLE `hiring_records` (
   `id` int(11) NOT NULL,
-  `status` int(2) DEFAULT NULL COMMENT '0=invited,1=interested,2=suggested,3=hired',
+  `status` int(2) NOT NULL DEFAULT 0 COMMENT '0=invited,1=interested,2=suggested,3=hired',
   `suggested_rate` int(11) DEFAULT NULL,
   `final_rate` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
@@ -188,9 +188,9 @@ CREATE TABLE `hiring_records` (
 --
 
 INSERT INTO `hiring_records` (`id`, `status`, `suggested_rate`, `final_rate`, `user_id`, `project_id`, `job_id`, `hired_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 0, NULL, NULL, 1, 2, NULL, NULL, '2023-07-14 14:31:45', NULL, NULL),
-(2, 1, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', '2023-07-14 14:32:32', NULL),
-(3, 1, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', NULL, NULL);
+(2, 2, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', '2023-07-16 09:36:30', NULL),
+(3, 1, NULL, NULL, 1, 3, NULL, NULL, '2023-07-14 14:31:45', NULL, NULL),
+(5, 1, NULL, NULL, 1, 2, NULL, NULL, '2023-07-16 09:21:29', '2023-07-16 10:34:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -209,6 +209,7 @@ CREATE TABLE `job_post` (
   `project_duration` int(2) DEFAULT NULL COMMENT '0=less than month,1=1-3,3=3-6,6= more then 6 month',
   `hour_per_week` int(2) DEFAULT NULL COMMENT '0=not-sure,1=less then 30,2=more then 30',
   `job_status` int(1) NOT NULL DEFAULT 0 COMMENT '0=open,1=closed',
+  `contract_status` int(2) NOT NULL DEFAULT 0 COMMENT '0=pending,1=open,2=closed',
   `company_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
@@ -219,8 +220,8 @@ CREATE TABLE `job_post` (
 -- Dumping data for table `job_post`
 --
 
-INSERT INTO `job_post` (`id`, `job_role`, `description`, `hourly_rate`, `skills`, `step_status`, `experience_needed`, `project_duration`, `hour_per_week`, `job_status`, `company_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Jr. Software Dev', 'description', 20, '1,2', 3, 1, 1, 1, 0, 2, '2023-07-11 05:29:59', '2023-07-11 05:45:52', NULL);
+INSERT INTO `job_post` (`id`, `job_role`, `description`, `hourly_rate`, `skills`, `step_status`, `experience_needed`, `project_duration`, `hour_per_week`, `job_status`, `contract_status`, `company_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Jr. Software Dev', 'description', 20, '1,2', 3, 1, 1, 1, 0, 1, 2, '2023-07-11 05:29:59', '2023-07-16 11:19:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -248,7 +249,6 @@ CREATE TABLE `projects` (
   `commission` int(11) NOT NULL DEFAULT 0,
   `hiring_status` int(2) DEFAULT NULL COMMENT '0=invited,1=interested,2=suggested,3=hired',
   `contract_status` int(2) NOT NULL DEFAULT 0 COMMENT '0=pending,1=open,2=closed',
-  `assigned_user` varchar(100) DEFAULT NULL,
   `company_id` int(11) DEFAULT NULL,
   `published_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
@@ -260,9 +260,9 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `project_closed_reason`, `commission`, `hiring_status`, `contract_status`, `assigned_user`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 'All positions filled', 99, 1, 1, NULL, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-15 07:20:53', NULL),
-(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, NULL, 0, NULL, 0, NULL, 2, NULL, '2023-07-05 06:20:03', '2023-07-14 18:05:22', NULL);
+INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_status`, `project_closed_reason`, `commission`, `hiring_status`, `contract_status`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 'All positions filled', 99, 1, 1, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-15 07:20:53', NULL),
+(3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, NULL, 0, NULL, 0, 2, NULL, '2023-07-05 06:20:03', '2023-07-14 18:05:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -369,7 +369,7 @@ CREATE TABLE `user_master` (
 --
 
 INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `image_url`, `contact_number`, `type`, `skype_id`, `professional_role`, `description`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `country_code`, `state_code`, `city_id`, `city_name`, `zip_code`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `services_offer`, `skills`, `signup_completed`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Jenish', 'S', 'jenishpatel1@gmail.com', '$2a$11$VordPk3KO15D0dnxIR0ah..TvTL8e3X/SR94NiNSvaLZNBjAF8ogu', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 0, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, '2023-07-01 17:08:17', '2023-07-12 14:45:21', NULL),
+(1, 'Jenish', 'S', 'jenishpatel1@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 1, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, '2023-07-01 17:08:17', '2023-07-16 11:05:05', NULL),
 (2, 'Jenish', 'patel', 'jenish101@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2023-07-10 06:42:50', NULL, NULL);
 
 --
@@ -496,7 +496,7 @@ ALTER TABLE `freelancer_projects`
 -- AUTO_INCREMENT for table `hiring_records`
 --
 ALTER TABLE `hiring_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `job_post`

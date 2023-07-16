@@ -1,4 +1,5 @@
 import {
+  ProjectListType,
   saveOrUpdateJobPostDetails,
   updateJobPosttRequirements,
 } from '../interfaces'
@@ -74,6 +75,14 @@ class JobPostHelper {
   async getRecruiterJobList(data) {
     const limitQuery = paginationLimitQuery(data.page, data.size)
 
+    let whereQuery = ''
+
+    if (data.type === ProjectListType.ACTIVE) {
+      whereQuery += ' AND (contract_status IN (0,1) OR job_status = 0)'
+    } else if (data.type === ProjectListType.RECENTLY_FILLED) {
+      whereQuery += ' AND contract_status = 2 AND job_status = 1'
+    }
+
     const findQuery = `
     SELECT
       id,
@@ -85,12 +94,24 @@ class JobPostHelper {
       job_post
     WHERE
       company_id = ?
+      ${whereQuery}
       AND deleted_at IS NULL
-    ${limitQuery}`
+    ORDER BY
+      created_at DESC
+    ${limitQuery}
+    `
     return pool.query(findQuery, [data.companyId])
   }
 
   async getRecruiterJobCount(data) {
+    let whereQuery = ''
+
+    if (data.type === ProjectListType.ACTIVE) {
+      whereQuery += ' AND (contract_status IN (0,1) OR job_status = 0)'
+    } else if (data.type === ProjectListType.RECENTLY_FILLED) {
+      whereQuery += ' AND contract_status = 2 AND job_status = 1'
+    }
+
     const findQuery = `
     SELECT
       COUNT(id) as total
@@ -98,6 +119,7 @@ class JobPostHelper {
       job_post
     WHERE
       company_id = ?
+      ${whereQuery}
       AND deleted_at IS NULL`
     return pool.query(findQuery, [data.companyId])
   }

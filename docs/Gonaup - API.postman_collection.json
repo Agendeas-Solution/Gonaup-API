@@ -1253,7 +1253,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/project/client/list?isDraft=true",
+							"raw": "{{localUrl}}/project/client/list?type=active",
 							"host": [
 								"{{localUrl}}"
 							],
@@ -1264,8 +1264,9 @@
 							],
 							"query": [
 								{
-									"key": "isDraft",
-									"value": "true"
+									"key": "type",
+									"value": "active",
+									"description": "active, recently-filled, draft"
 								}
 							]
 						}
@@ -1273,7 +1274,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Assigned Project for Freelancer",
+					"name": "Get Project for Freelancer",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1284,7 +1285,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/project/freelancer/list",
+							"raw": "{{localUrl}}/project/freelancer/list?type=active",
 							"host": [
 								"{{localUrl}}"
 							],
@@ -1292,6 +1293,13 @@
 								"project",
 								"freelancer",
 								"list"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "active",
+									"description": "active, invited, recently-filled"
+								}
 							]
 						}
 					},
@@ -1347,7 +1355,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/job-post/recruiter/list",
+							"raw": "{{localUrl}}/job-post/recruiter/list?type=active",
 							"host": [
 								"{{localUrl}}"
 							],
@@ -1355,6 +1363,13 @@
 								"job-post",
 								"recruiter",
 								"list"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "active",
+									"description": "active, recently-filled"
+								}
 							]
 						}
 					},
@@ -1531,7 +1546,7 @@
 		},
 		{
 			"key": "authToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInR5cGUiOjAsImlhdCI6MTY4ODgwOTExMX0.zkv28sUdvYcfMhe2YV2iTW42BF4VNUE1JrU7y43XPb8",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInR5cGUiOjEsImNvbXBhbnlJZCI6MiwiaWF0IjoxNjg5NTA1NTA4fQ.E3bX3wuGXCcVkdppkWTKWqfEFl0qUOEZugdBg3RvrgQ",
 			"type": "string"
 		}
 	]
