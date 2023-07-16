@@ -73,10 +73,11 @@ class ProjectService {
     }
   }
 
-  async getClientProjectDetailsById(projectId: number) {
+  async getClientProjectDetailsById(projectId: number, companyId: number) {
     try {
       const [projectDetail] = await projectHelper.getClientProjectDetailsById(
         projectId,
+        companyId,
       )
 
       if (!projectDetail[0])
@@ -85,6 +86,13 @@ class ProjectService {
       if (projectDetail[0].skills) {
         projectDetail[0].skills = await getSkillList(projectDetail[0], 'skills')
       }
+
+      const [candidates] = await projectHelper.getCandidateListByStatus(
+        projectId,
+        2,
+      )
+      projectDetail[0].suggestedTalents = candidates
+
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: projectDetail[0],

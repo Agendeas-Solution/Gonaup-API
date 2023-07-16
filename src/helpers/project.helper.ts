@@ -109,7 +109,7 @@ class ProjectHelper {
     ])
   }
 
-  async getClientProjectDetailsById(projectId: number) {
+  async getClientProjectDetailsById(projectId: number, companyId: number) {
     const findQuery = `
     SELECT
       p.id,
@@ -134,8 +134,9 @@ class ProjectHelper {
       p.service_id = s.id
     WHERE
       p.id = ?
+      AND company_id = ?
       AND p.deleted_at IS NULL`
-    return pool.query(findQuery, [projectId])
+    return pool.query(findQuery, [projectId, companyId])
   }
 
   async getClientProjectList(data) {
@@ -309,6 +310,27 @@ class ProjectHelper {
       data.userId,
       data.projectId,
     ])
+  }
+
+  async getCandidateListByStatus(projectId: number, status: number) {
+    const findQuery = `
+      SELECT
+        ${status === 3 ? 'hr.final_rate,' : ''}
+        hr.suggested_rate,
+        CONCAT(first_name, ' ', SUBSTRING(last_name, 1, 1)) AS full_name
+      FROM
+        hiring_records as hr
+      LEFT JOIN
+        user_master as u
+      ON
+        u.id = hr.user_id
+      WHERE
+        hr.project_id = ?
+        AND hr.status = ?
+        AND hr.deleted_at is NULL
+      ORDER BY
+        hr.created_at DESC`
+    return pool.query(findQuery, [projectId, status])
   }
 }
 

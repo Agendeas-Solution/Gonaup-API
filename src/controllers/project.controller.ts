@@ -81,6 +81,7 @@ class ProjectController {
         res,
         await projectService.getClientProjectDetailsById(
           Number(req.query.projectId),
+          req.token.companyId,
         ),
       )
     } catch (error) {
