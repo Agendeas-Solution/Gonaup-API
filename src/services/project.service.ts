@@ -1,6 +1,7 @@
 import { projectHelper, userHelper } from '../helpers'
 import { MESSAGES } from '../constants'
 import {
+  applyForProject,
   saveOrUpdateProjectTitleAndDesc,
   updateProjectBudget,
   updateProjectRequirements,
@@ -148,10 +149,10 @@ class ProjectService {
     }
   }
 
-  async getFreelancerProjectDetailsById(projectId: number) {
+  async getFreelancerProjectDetailsById(projectId: number, userId: number) {
     try {
       const [projectDetail] =
-        await projectHelper.getFreelancerProjectDetailsById(projectId)
+        await projectHelper.getFreelancerProjectDetailsById(projectId, userId)
 
       if (!projectDetail[0])
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
@@ -162,6 +163,18 @@ class ProjectService {
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: projectDetail[0],
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async applyForProject(data: applyForProject) {
+    try {
+      await projectHelper.applyForProject(data)
+      return {
+        message: MESSAGES.PROJECT.APPLIED_SUCCESSFULLY,
       }
     } catch (error) {
       console.log(error)

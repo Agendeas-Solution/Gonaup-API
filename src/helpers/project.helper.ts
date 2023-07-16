@@ -1,5 +1,6 @@
 import {
   ProjectListType,
+  applyForProject,
   saveOrUpdateProjectTitleAndDesc,
   updateProjectBudget,
   updateProjectRequirements,
@@ -258,7 +259,7 @@ class ProjectHelper {
     return whereQuery
   }
 
-  async getFreelancerProjectDetailsById(projectId: number) {
+  async getFreelancerProjectDetailsById(projectId: number, userId: number) {
     const findQuery = `
     SELECT
       p.id,
@@ -274,17 +275,40 @@ class ProjectHelper {
       project_duration,
       experience_needed,
       hour_per_week,
-      project_status
+      project_status,
+      case when hr.status != 0 then true else false end as invited
     FROM
       projects as p
     LEFT JOIN
       services as s 
     ON 
       p.service_id = s.id
+    LEFT JOIN
+      hiring_records as hr
+    ON
+      hr.project_id = p.id
     WHERE
       p.id = ?
+      AND hr.user_id = ?   
       AND p.deleted_at IS NULL`
-    return pool.query(findQuery, [projectId])
+    return pool.query(findQuery, [projectId, userId])
+  }
+
+  async applyForProject(data: applyForProject) {
+    const updateQuery = `
+    UPDATE
+      hiring_records 
+    SET 
+      status = 1,
+      suggested_rate = ?
+    WHERE
+      user_id = ? 
+      AND project_id = ?`
+    return pool.query(updateQuery, [
+      data.suggestedRate,
+      data.userId,
+      data.projectId,
+    ])
   }
 }
 

@@ -27,6 +27,7 @@ export const API_URL = {
     SKILL: '/skills',
     BUDGET: '/budget',
     REQUIREMENTS: '/requirements',
+    APPLY: '/apply',
   },
   COMPANY: {},
   RECRUITER: {

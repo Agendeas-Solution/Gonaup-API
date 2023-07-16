@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "75ca76ab-1041-4627-a9ef-372d92606c44",
+		"_postman_id": "fe9cb40d-370f-4abb-9239-2901b47cd07f",
 		"name": "Gonaup - API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13975886",
-		"_collection_link": "https://universal-zodiac-442173.postman.co/workspace/New-Team-Workspace~de4a4ffc-51a9-4d86-8d31-950c7d687116/collection/13975886-75ca76ab-1041-4627-a9ef-372d92606c44?action=share&creator=13975886&source=collection_link"
+		"_collection_link": "https://universal-zodiac-442173.postman.co/workspace/New-Team-Workspace~de4a4ffc-51a9-4d86-8d31-950c7d687116/collection/13975886-fe9cb40d-370f-4abb-9239-2901b47cd07f?action=share&creator=13975886&source=collection_link"
 	},
 	"item": [
 		{
@@ -1300,6 +1300,39 @@
 									"value": "active",
 									"description": "active, invited, recently-filled"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply For Job",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"suggestedRate\": 16,\n    \"projectId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/apply",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"apply"
 							]
 						}
 					},

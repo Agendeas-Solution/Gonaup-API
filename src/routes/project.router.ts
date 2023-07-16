@@ -62,4 +62,11 @@ projectRouter.get(
   projectController.getFreelancerProjectDetailsById,
 )
 
+projectRouter.put(
+  API_URL.PROJECT.APPLY,
+  joiValidatorMiddleware(projectSchemas.applyForProject),
+  validateTokenMiddleware,
+  projectController.applyForProject,
+)
+
 export { projectRouter }

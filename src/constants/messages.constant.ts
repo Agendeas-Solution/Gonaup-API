@@ -19,4 +19,7 @@ export const MESSAGES = {
   USER: {
     SIGNUP_ALREADY_COMPLETED: 'You Already Completed Your Signup',
   },
+  PROJECT: {
+    APPLIED_SUCCESSFULLY: 'Applied for project successfully!',
+  },
 }
