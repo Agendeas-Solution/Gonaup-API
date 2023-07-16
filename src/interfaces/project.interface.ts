@@ -22,3 +22,9 @@ export interface updateProjectRequirements {
   projectId: number
   isPublished: boolean
 }
+
+export enum ProjectListType {
+  ACTIVE = 'active',
+  INVITED = 'invited',
+  RECENTLY_FILLED = 'recently-filled',
+}

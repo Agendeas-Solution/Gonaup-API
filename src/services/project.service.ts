@@ -128,7 +128,7 @@ class ProjectService {
   async getFreelancerProjectList(data) {
     try {
       const [[projectCount], projectList] = await Promise.all([
-        projectHelper.getFreeLancerProjectsCount(data.userId),
+        projectHelper.getFreeLancerProjectsCount(data),
         projectHelper.getFreelancerProjectList(data),
       ])
 

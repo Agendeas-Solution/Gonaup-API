@@ -40,6 +40,19 @@ class CompanyHelper {
       AND deleted_at IS NULL`
     return pool.query(findQuery, [companyId])
   }
+
+  async getCompanyIdByUserId(userId: number) {
+    const findQuery = `
+    SELECT
+      id
+    FROM
+      companies
+    WHERE
+      user_id = ?
+      AND deleted_at IS NULL
+    LIMIT 1`
+    return pool.query(findQuery, [userId])
+  }
 }
 
 export const companyHelper = new CompanyHelper()

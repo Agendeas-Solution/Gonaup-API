@@ -1,4 +1,5 @@
 import {
+  ProjectListType,
   saveOrUpdateProjectTitleAndDesc,
   updateProjectBudget,
   updateProjectRequirements,
@@ -139,6 +140,14 @@ class ProjectHelper {
   async getClientProjectList(data) {
     const limitQuery = paginationLimitQuery(data.page, data.size)
 
+    let whereQuery = ''
+
+    if (data.type === ProjectListType.ACTIVE) {
+      whereQuery += ' AND (contract_status IN (0,1) OR project_status = 0)'
+    } else if (data.type === ProjectListType.RECENTLY_FILLED) {
+      whereQuery += ' AND contract_status = 2 AND project_status = 1'
+    }
+
     const findQuery = `
     SELECT
       id,
@@ -155,13 +164,24 @@ class ProjectHelper {
       projects
     WHERE
       company_id = ?
-      AND published_at ${data.isDraft === 'true' ? 'is NULL' : 'is NOT NULL'}
+      AND published_at ${data.type === 'draft' ? 'is NULL' : 'is NOT NULL'}
+      ${whereQuery}
       AND deleted_at IS NULL
+    ORDER BY
+      created_at DESC
     ${limitQuery}`
     return pool.query(findQuery, [data.companyId])
   }
 
   async getClientProjectsCount(data) {
+    let whereQuery = ''
+
+    if (data.type === ProjectListType.ACTIVE) {
+      whereQuery += ' AND (contract_status IN (0,1) OR project_status = 0)'
+    } else if (data.type === ProjectListType.RECENTLY_FILLED) {
+      whereQuery += ' AND contract_status = 2 AND project_status = 1'
+    }
+
     const findQuery = `
     SELECT
       COUNT(id) as total
@@ -169,7 +189,8 @@ class ProjectHelper {
       projects
     WHERE
       company_id = ?
-      AND published_at ${data.isDraft === 'true' ? 'is NULL' : 'is NOT NULL'}
+      AND published_at ${data.type === 'draft' ? 'is NULL' : 'is NOT NULL'}
+      ${whereQuery}
       AND deleted_at IS NULL`
     return pool.query(findQuery, [data.companyId])
   }
@@ -179,33 +200,62 @@ class ProjectHelper {
 
     const findQuery = `
     SELECT
-      id,
-      title,
-      description,
-      budget_type,
-      fixed_budget,
-      min_hourly_budget,
-      max_hourly_budget,
-      project_duration
+      p.id,
+      p.title,
+      p.description,
+      p.budget_type,
+      p.fixed_budget,
+      p.min_hourly_budget,
+      p.max_hourly_budget,
+      p.project_duration
     FROM
-      projects
+      projects as p
+    LEFT JOIN
+      hiring_records as hr
+    ON
+      hr.project_id = p.id
     WHERE
-      FIND_IN_SET(?,assigned_user) > 0
-      AND deleted_at IS NULL
+      hr.user_id = ?
+      ${this.getFreelancerProjectListFilterQuery(data)}
+      AND p.deleted_at IS NULL
+    ORDER BY
+      p.created_at DESC
     ${limitQuery}`
     return pool.query(findQuery, [data.userId])
   }
 
-  async getFreeLancerProjectsCount(userId: number) {
+  async getFreeLancerProjectsCount(data) {
     const findQuery = `
     SELECT
-      COUNT(id) as total
+      COUNT(1) as total
     FROM
-      projects
+      projects as p
+    LEFT JOIN
+      hiring_records as hr
+    ON
+      hr.project_id = p.id
     WHERE
-      FIND_IN_SET(?,assigned_user) > 0
-      AND deleted_at IS NULL`
-    return pool.query(findQuery, [userId])
+      hr.user_id = ?
+      ${this.getFreelancerProjectListFilterQuery(data)}
+      AND p.deleted_at IS NULL`
+    return pool.query(findQuery, [data.userId])
+  }
+
+  getFreelancerProjectListFilterQuery(data) {
+    let whereQuery = ''
+
+    if (
+      data.type === ProjectListType.ACTIVE ||
+      data.type === ProjectListType.RECENTLY_FILLED
+    ) {
+      whereQuery += ` AND p.contract_status = ${
+        data.type === ProjectListType.ACTIVE ? 1 : 2
+      } AND hr.status = 3`
+    } else if (data.type === ProjectListType.INVITED) {
+      whereQuery += ' AND hr.status = 0'
+    }
+
+    return whereQuery
   }
 
   async getFreelancerProjectDetailsById(projectId: number) {

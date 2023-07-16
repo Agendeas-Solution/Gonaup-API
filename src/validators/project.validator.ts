@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import { ProjectListType } from '../interfaces'
 
 /**
  * Joi schema for Coupon route request validation
@@ -48,6 +49,9 @@ export const projectSchemas = {
 
   clientProjectList: Joi.object({
     query: Joi.object({
+      type: Joi.string()
+        .valid(...Object.values(ProjectListType), 'draft')
+        .required(),
       page: Joi.number(),
       size: Joi.number(),
       isDraft: Joi.boolean(),
@@ -56,6 +60,9 @@ export const projectSchemas = {
 
   freelancerProjectList: Joi.object({
     query: Joi.object({
+      type: Joi.string()
+        .valid(...Object.values(ProjectListType))
+        .required(),
       page: Joi.number(),
       size: Joi.number(),
     }).required(),
