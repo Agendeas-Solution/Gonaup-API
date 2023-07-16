@@ -22,6 +22,11 @@ export interface updateProjectRequirements {
   projectId: number
   isPublished: boolean
 }
+export interface applyForProject {
+  suggestedRate: number
+  userId: number
+  projectId: number
+}
 
 export enum ProjectListType {
   ACTIVE = 'active',

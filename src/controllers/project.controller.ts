@@ -130,7 +130,22 @@ class ProjectController {
         res,
         await projectService.getFreelancerProjectDetailsById(
           Number(req.query.projectId),
+          req.token.userId,
         ),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async applyForProject(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.applyForProject({
+          ...req.body,
+          userId: req.token.userId,
+        }),
       )
     } catch (error) {
       next(error)

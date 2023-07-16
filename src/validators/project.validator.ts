@@ -67,4 +67,11 @@ export const projectSchemas = {
       size: Joi.number(),
     }).required(),
   }).unknown(),
+
+  applyForProject: Joi.object({
+    body: Joi.object({
+      suggestedRate: Joi.number().required(),
+      projectId: Joi.number().required(),
+    }).required(),
+  }).unknown(),
 }
