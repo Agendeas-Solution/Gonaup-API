@@ -1,27 +1,24 @@
 import { FieldPacket, RowDataPacket } from 'mysql2'
 import { MESSAGES } from '../constants'
-import { jobPostHelper } from '../helpers'
-import {
-  saveOrUpdateJobPostDetails,
-  updateJobPosttRequirements,
-} from '../interfaces'
+import { jobHelper } from '../helpers'
+import { saveOrUpdateJobDetails, updateJobRequirements } from '../interfaces'
 import { NotFoundException } from '../exceptions'
 import { getSkillList } from '../utils'
 
-class JobPostService {
-  async saveOrUpdateJobPostDetails(data: saveOrUpdateJobPostDetails) {
+class JobService {
+  async saveOrUpdateJobDetails(data: saveOrUpdateJobDetails) {
     try {
-      let jobPostId
-      if (data.jobPostId) {
-        await jobPostHelper.updateJobPostDetails(data)
+      let jobId
+      if (data.jobId) {
+        await jobHelper.updateJobDetails(data)
       } else {
-        const [jobPost] = await jobPostHelper.saveJobPostDetails(data)
-        jobPostId = jobPost['insertId']
+        const [jobPost] = await jobHelper.saveJobDetails(data)
+        jobId = jobPost['insertId']
       }
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
         data: {
-          jobPostId,
+          jobId,
         },
       }
     } catch (error) {
@@ -30,9 +27,9 @@ class JobPostService {
     }
   }
 
-  async updateJobPostRequirements(data: updateJobPosttRequirements) {
+  async updateJobRequirements(data: updateJobRequirements) {
     try {
-      await jobPostHelper.updateJobPostRequirements(data)
+      await jobHelper.updateJobRequirements(data)
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
       }
@@ -45,8 +42,8 @@ class JobPostService {
   async getRecruiterJobList(data) {
     try {
       const [[jobCount], [jobRecords]] = await Promise.all([
-        jobPostHelper.getRecruiterJobCount(data),
-        jobPostHelper.getRecruiterJobList(data),
+        jobHelper.getRecruiterJobCount(data),
+        jobHelper.getRecruiterJobList(data),
       ])
 
       const jobList = jobRecords as [RowDataPacket[][], FieldPacket[]]
@@ -74,4 +71,4 @@ class JobPostService {
   }
 }
 
-export const jobPostService = new JobPostService()
+export const jobService = new JobService()

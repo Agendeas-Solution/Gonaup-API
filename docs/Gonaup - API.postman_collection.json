@@ -1341,10 +1341,10 @@
 			]
 		},
 		{
-			"name": "Job Post",
+			"name": "Job",
 			"item": [
 				{
-					"name": "Save Job Post Details",
+					"name": "Save Job Details",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1356,7 +1356,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobRole\": \"Jr. Software Dev\",\n    \"description\": \"description\",\n    \"skills\": \"1,2\",\n    \"hourlyRate\": 20,\n    \"jobPostId\": 1\n}",
+							"raw": "{\n    \"jobRole\": \"Jr. Software Dev\",\n    \"description\": \"description\",\n    \"skills\": \"1,2\",\n    \"hourlyRate\": 25,\n    \"jobId\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1364,12 +1364,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/job-post/details",
+							"raw": "{{localUrl}}/job/details",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"job-post",
+								"job",
 								"details"
 							]
 						}
@@ -1388,12 +1388,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{localUrl}}/job-post/recruiter/list?type=active",
+							"raw": "{{localUrl}}/job/recruiter/list?type=active",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"job-post",
+								"job",
 								"recruiter",
 								"list"
 							],
@@ -1409,7 +1409,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Job Post Requirements Copy",
+					"name": "Update Job Requirements",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1421,7 +1421,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"experienceNeeded\": 1,\n    \"projectDuration\": 1,\n    \"hourePerWeek\": 1,\n    \"jobPostId\": 1\n}",
+							"raw": "{\n    \"experienceNeeded\": 1,\n    \"projectDuration\": 1,\n    \"hourePerWeek\": 1,\n    \"jobId\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1429,12 +1429,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{localUrl}}/job-post/requirements",
+							"raw": "{{localUrl}}/job/requirements",
 							"host": [
 								"{{localUrl}}"
 							],
 							"path": [
-								"job-post",
+								"job",
 								"requirements"
 							]
 						}

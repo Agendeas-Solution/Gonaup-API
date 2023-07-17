@@ -1,16 +1,16 @@
-export interface saveOrUpdateJobPostDetails {
+export interface saveOrUpdateJobDetails {
   jobRole: string
   description: string
   skills: string
   hourlyRate: number
   companyId: number
-  jobPostId?: number
+  jobId?: number
 }
 
-export interface updateJobPosttRequirements {
+export interface updateJobRequirements {
   experienceNeeded: number
   projectDuration: number
   hourePerWeek: number
   companyId: number
-  jobPostId: number
+  jobId: number
 }

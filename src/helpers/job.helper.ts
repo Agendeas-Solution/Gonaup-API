@@ -1,25 +1,26 @@
 import {
   ProjectListType,
-  saveOrUpdateJobPostDetails,
-  updateJobPosttRequirements,
+  saveOrUpdateJobDetails,
+  updateJobRequirements,
 } from '../interfaces'
 import { pool } from '../databases'
 import { paginationLimitQuery } from '../utils'
 
-class JobPostHelper {
-  async saveJobPostDetails(data: saveOrUpdateJobPostDetails) {
+class JobHelper {
+  async saveJobDetails(data: saveOrUpdateJobDetails) {
     const insertQuery = `
-    INSERT INTO job_post
+    INSERT INTO projects
         (
-          job_role,
+          title,
           description,
-          hourly_rate,
+          min_hourly_budget,
           skills,
           company_id,
-          step_status
+          step_status,
+          project_type
         )
     VALUES 
-        (?,?,?,?,?,2)`
+        (?,?,?,?,?,2,1)`
     return pool.query(insertQuery, [
       data.jobRole,
       data.description,
@@ -29,14 +30,14 @@ class JobPostHelper {
     ])
   }
 
-  async updateJobPostDetails(data: saveOrUpdateJobPostDetails) {
+  async updateJobDetails(data: saveOrUpdateJobDetails) {
     const updateQuery = `
     UPDATE
-      job_post 
+      projects 
     SET 
-      job_role = ?,
+      title = ?,
       description = ?,
-      hourly_rate = ?,
+      min_hourly_budget = ?,
       skills = ?
     WHERE
       company_id = ? 
@@ -47,14 +48,14 @@ class JobPostHelper {
       data.hourlyRate,
       data.skills,
       data.companyId,
-      data.jobPostId,
+      data.jobId,
     ])
   }
 
-  async updateJobPostRequirements(data: updateJobPosttRequirements) {
+  async updateJobRequirements(data: updateJobRequirements) {
     const updateQuery = `
     UPDATE
-      job_post 
+      projects 
     SET 
       experience_needed = ?,
       project_duration = ?,
@@ -68,7 +69,7 @@ class JobPostHelper {
       data.projectDuration,
       data.hourePerWeek,
       data.companyId,
-      data.jobPostId,
+      data.jobId,
     ])
   }
 
@@ -78,22 +79,23 @@ class JobPostHelper {
     let whereQuery = ''
 
     if (data.type === ProjectListType.ACTIVE) {
-      whereQuery += ' AND (contract_status IN (0,1) OR job_status = 0)'
+      whereQuery += ' AND (contract_status IN (0,1) OR project_status = 0)'
     } else if (data.type === ProjectListType.RECENTLY_FILLED) {
-      whereQuery += ' AND contract_status = 2 AND job_status = 1'
+      whereQuery += ' AND contract_status = 2 AND project_status = 1'
     }
 
     const findQuery = `
     SELECT
       id,
-      job_role,
+      title,
       description,
       skills,
       created_at
     FROM
-      job_post
+      projects
     WHERE
       company_id = ?
+      AND project_type = 1
       ${whereQuery}
       AND deleted_at IS NULL
     ORDER BY
@@ -107,22 +109,23 @@ class JobPostHelper {
     let whereQuery = ''
 
     if (data.type === ProjectListType.ACTIVE) {
-      whereQuery += ' AND (contract_status IN (0,1) OR job_status = 0)'
+      whereQuery += ' AND (contract_status IN (0,1) OR project_status = 0)'
     } else if (data.type === ProjectListType.RECENTLY_FILLED) {
-      whereQuery += ' AND contract_status = 2 AND job_status = 1'
+      whereQuery += ' AND contract_status = 2 AND project_status = 1'
     }
 
     const findQuery = `
     SELECT
       COUNT(id) as total
     FROM
-      job_post
+      projects
     WHERE
       company_id = ?
+      AND project_type = 1
       ${whereQuery}
       AND deleted_at IS NULL`
     return pool.query(findQuery, [data.companyId])
   }
 }
 
-export const jobPostHelper = new JobPostHelper()
+export const jobHelper = new JobHelper()

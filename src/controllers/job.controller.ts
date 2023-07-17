@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
-import { jobPostService } from '../services'
+import { jobService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
-class JobPostController {
-  async saveOrUpdateJobPostDetails(
+class JobController {
+  async saveOrUpdateJobDetails(
     req: Request,
     res: Response,
     next: NextFunction,
@@ -11,7 +11,7 @@ class JobPostController {
     try {
       sendSuccessResponse(
         res,
-        await jobPostService.saveOrUpdateJobPostDetails({
+        await jobService.saveOrUpdateJobDetails({
           ...req.body,
           companyId: req.token.companyId,
         }),
@@ -21,15 +21,11 @@ class JobPostController {
     }
   }
 
-  async updateJobPostRequirements(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  async updateJobRequirements(req: Request, res: Response, next: NextFunction) {
     try {
       sendSuccessResponse(
         res,
-        await jobPostService.updateJobPostRequirements({
+        await jobService.updateJobRequirements({
           ...req.body,
           companyId: req.token.companyId,
         }),
@@ -43,7 +39,7 @@ class JobPostController {
     try {
       sendSuccessResponse(
         res,
-        await jobPostService.getRecruiterJobList({
+        await jobService.getRecruiterJobList({
           ...req.query,
           companyId: req.token.companyId,
         }),
@@ -54,4 +50,4 @@ class JobPostController {
   }
 }
 
-export const jobPostController = new JobPostController()
+export const jobController = new JobController()
