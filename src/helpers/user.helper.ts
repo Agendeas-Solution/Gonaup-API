@@ -215,7 +215,7 @@ class UserHelper {
           user_id
         )
     VALUES 
-        (?,?,?,?,?,?,?,?,?,?,?,?)`
+        (?,?,?,?,?,?,?,?,?,?,?)`
     return pool.query(insertQuery, [
       data.title,
       data.company,
