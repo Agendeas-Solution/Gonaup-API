@@ -234,6 +234,7 @@ class UserHelper {
   getFreelancerExperienceList(userId: number) {
     const findQuery = `
     SELECT
+      id,
       title,
       company,
       is_working,
@@ -350,6 +351,7 @@ class UserHelper {
   getFreelancerProjectList(userId: number) {
     const findQuery = `
     SELECT
+      id,
       title,
       project_image_url
     FROM
