@@ -123,6 +123,7 @@ class UserHelper {
   getFreelancerEducationList(userId: number) {
     const findQuery = `
     SELECT
+      id,
       school,
       degree,
       study_in,
