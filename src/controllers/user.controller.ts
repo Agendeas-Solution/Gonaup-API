@@ -413,6 +413,17 @@ class UserController {
     }
   }
 
+  async getUserNameAndEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await userService.getUserNameAndEmail(req.token.userId),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async getUserProfileDetailseById(
     req: Request,
     res: Response,
@@ -422,6 +433,21 @@ class UserController {
       sendSuccessResponse(
         res,
         await userService.getUserProfileDetailseById(
+          req.token.userId,
+          req.token?.companyId,
+        ),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async closeAccount(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await userService.closeAccount(
+          req.token.type,
           req.token.userId,
           req.token?.companyId,
         ),

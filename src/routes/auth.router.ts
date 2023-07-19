@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { API_URL } from '../constants'
-import { joiValidatorMiddleware } from '../middlewares'
+import { joiValidatorMiddleware, validateTokenMiddleware } from '../middlewares'
 import { authSchemas } from '../validators'
 import { authController } from '../controllers'
 
@@ -28,6 +28,26 @@ authRouter.post(
   API_URL.AUTH.LOGIN,
   joiValidatorMiddleware(authSchemas.login),
   authController.login,
+)
+
+authRouter.put(
+  API_URL.AUTH.CHANGE_PASSWORD,
+  joiValidatorMiddleware(authSchemas.changePassword),
+  validateTokenMiddleware,
+  authController.changePassword,
+)
+
+authRouter.put(
+  API_URL.AUTH.SWITCH_ACCOUNT,
+  joiValidatorMiddleware(authSchemas.switchAccount),
+  validateTokenMiddleware,
+  authController.switchAccount,
+)
+
+authRouter.get(
+  API_URL.AUTH.ACCOUNTS,
+  validateTokenMiddleware,
+  authController.getAccounts,
 )
 
 export { authRouter }

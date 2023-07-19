@@ -10,7 +10,7 @@ import {
 } from '../interfaces'
 import { pool } from '../databases'
 import { S3_CONFIG } from '../config'
-import { S3 } from '../constants'
+import { S3, USER } from '../constants'
 
 class UserHelper {
   async getUserByEmail(email: string) {
@@ -623,6 +623,25 @@ class UserHelper {
     ])
   }
 
+  getUserNameAndEmail(userId: number) {
+    const findQuery = `
+      SELECT
+        first_name,
+        last_name,
+        email,
+        case when c.company_name is null then 0 else 1 end as clientAccountExist
+      FROM
+        user_master as u
+      LEFT JOIN
+        companies as c
+      ON
+        c.user_id = u.id
+      WHERE
+        u.id = ?
+    `
+    return pool.query(findQuery, [userId])
+  }
+
   getUserProfileDetailseById(userId: number, companyId?: number) {
     const findQuery = `
     SELECT
@@ -657,6 +676,40 @@ class UserHelper {
       AND deleted_at IS NULL
     `
     return pool.query(findQuery, [userId])
+  }
+
+  updateUserType(userId: number) {
+    const updateQuery = `
+    UPDATE
+      user_master
+    SET
+      type = ?
+    WHERE
+      id = ?
+    `
+    return pool.query(updateQuery, [USER.TYPE.BOTH, userId])
+  }
+
+  async closeUserAccount(userId: number) {
+    const updateQuery = `
+      UPDATE 
+        user_master
+      SET 
+        deleted_at = NOW() 
+      WHERE
+        id = ?;`
+    return pool.query(updateQuery, [userId])
+  }
+
+  async closeCompanyAccount(id: number, key: string) {
+    const updateQuery = `
+      UPDATE
+        companies
+      SET
+        deleted_at = NOW() 
+      WHERE
+        ${key === 'byUser' ? 'user_id' : 'id'} = ?;`
+    return pool.query(updateQuery, [id])
   }
 }
 

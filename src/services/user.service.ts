@@ -490,6 +490,23 @@ class UserService {
     }
   }
 
+  async getUserNameAndEmail(userId: number) {
+    try {
+      const [userNameAndEmail] = await userHelper.getUserNameAndEmail(userId)
+
+      if (!userNameAndEmail[0])
+        throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
+
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
+        data: userNameAndEmail[0],
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
   async getUserProfileDetailseById(userId: number, companyId?: number) {
     try {
       const [userDetails] = await userHelper.getUserProfileDetailseById(
@@ -547,6 +564,30 @@ class UserService {
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: userDetails[0],
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async closeAccount(type: number, userId: number, companyId: number) {
+    try {
+      if (type === USER.TYPE.BOTH) {
+        if (companyId) {
+          await userHelper.closeCompanyAccount(companyId, '')
+        } else {
+          await userHelper.closeUserAccount(userId)
+          await userHelper.closeCompanyAccount(userId, 'byUser')
+        }
+      } else if (type === USER.TYPE.FREELANCER) {
+        await userHelper.closeUserAccount(userId)
+      } else {
+        await userHelper.closeUserAccount(userId)
+        await userHelper.closeCompanyAccount(companyId, '')
+      }
+      return {
+        message: MESSAGES.COMMON_MESSAGE.ACCOUNT_CLOSED,
       }
     } catch (error) {
       console.log(error)
