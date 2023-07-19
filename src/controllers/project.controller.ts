@@ -152,6 +152,21 @@ class ProjectController {
       next(error)
     }
   }
+
+  async closeProject(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await projectService.closeProject(
+          req.body.reason,
+          req.body.projectId,
+          req.token?.companyId,
+        ),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const projectController = new ProjectController()

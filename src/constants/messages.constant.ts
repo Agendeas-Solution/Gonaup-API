@@ -24,5 +24,6 @@ export const MESSAGES = {
   },
   PROJECT: {
     APPLIED_SUCCESSFULLY: 'Applied for project successfully!',
+    CLOSED_SUCCEESSFULLY: 'Project closed successfully!',
   },
 }

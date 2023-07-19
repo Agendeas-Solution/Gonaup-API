@@ -74,4 +74,11 @@ export const projectSchemas = {
       projectId: Joi.number().required(),
     }).required(),
   }).unknown(),
+
+  closeProject: Joi.object({
+    body: Joi.object({
+      reason: Joi.string().required(),
+      projectId: Joi.number().required(),
+    }).required(),
+  }).unknown(),
 }

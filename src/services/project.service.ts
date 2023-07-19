@@ -189,6 +189,18 @@ class ProjectService {
       throw error
     }
   }
+
+  async closeProject(reason: string, projectId: number, companyId: number) {
+    try {
+      await projectHelper.closeProject(reason, projectId, companyId)
+      return {
+        message: MESSAGES.PROJECT.CLOSED_SUCCEESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
 }
 
 export const projectService = new ProjectService()

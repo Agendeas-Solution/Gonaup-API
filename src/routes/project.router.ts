@@ -69,4 +69,11 @@ projectRouter.put(
   projectController.applyForProject,
 )
 
+projectRouter.delete(
+  API_URL.PROJECT.CLOSE,
+  validateTokenMiddleware,
+  joiValidatorMiddleware(projectSchemas.closeProject),
+  projectController.closeProject,
+)
+
 export { projectRouter }

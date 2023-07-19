@@ -332,6 +332,19 @@ class ProjectHelper {
         hr.created_at DESC`
     return pool.query(findQuery, [projectId, status])
   }
+
+  async closeProject(reason: string, projectId: number, companyId: number) {
+    const updateQuery = `
+      UPDATE 
+        projects
+      SET
+        project_closed_reason = ?,
+        project_status = 1
+      WHERE
+        id = ?
+        AND company_id = ?`
+    return pool.query(updateQuery, [reason, projectId, companyId])
+  }
 }
 
 export const projectHelper = new ProjectHelper()

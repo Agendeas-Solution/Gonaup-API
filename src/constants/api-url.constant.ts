@@ -31,6 +31,7 @@ export const API_URL = {
     BUDGET: '/budget',
     REQUIREMENTS: '/requirements',
     APPLY: '/apply',
+    CLOSE: '/close',
   },
   COMPANY: {},
   RECRUITER: {
