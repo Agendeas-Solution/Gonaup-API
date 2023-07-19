@@ -120,6 +120,96 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"jenish@820\",\n    \"newPassword\": \"jenish@820\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/change-password",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/auth/accounts",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Switch Account",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/switch-account",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"switch-account"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -998,7 +1088,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Freelancer Name and Email",
+					"name": "Update User Name and Email",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1025,6 +1115,66 @@
 							"path": [
 								"user",
 								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Use Name And Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jenish\",\n    \"lastName\": \"S\",\n    \"email\": \"jenishpatel1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/user/details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close Account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/user/close-account",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"user",
+								"close-account"
 							]
 						}
 					},

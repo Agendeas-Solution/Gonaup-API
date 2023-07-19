@@ -1,6 +1,9 @@
 export const API_URL = {
   AUTH: {
     LOGIN: '/login',
+    CHANGE_PASSWORD: '/change-password',
+    SWITCH_ACCOUNT: '/switch-account',
+    ACCOUNTS: '/accounts',
   },
   FREELANCER: {
     ASSIGN_PROJECT_LIST: '/freelancer/list',
@@ -40,4 +43,5 @@ export const API_URL = {
   SERVICES: '/services',
   DETAILS: '/details',
   PROFILE: '/profile',
+  CLOSE_ACCOUNT: '/close-account',
 }

@@ -176,9 +176,21 @@ userRouter.put(
 )
 
 userRouter.get(
+  API_URL.DETAILS,
+  validateTokenMiddleware,
+  userController.getUserNameAndEmail,
+)
+
+userRouter.get(
   API_URL.PROFILE,
   validateTokenMiddleware,
   userController.getUserProfileDetailseById,
+)
+
+userRouter.delete(
+  API_URL.CLOSE_ACCOUNT,
+  validateTokenMiddleware,
+  userController.closeAccount,
 )
 
 export { userRouter }

@@ -3,11 +3,7 @@ import { companyService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
 class CompanyController {
-  async saveClientProjectDetails(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  async saveCompanyDetails(req: Request, res: Response, next: NextFunction) {
     try {
       sendSuccessResponse(
         res,

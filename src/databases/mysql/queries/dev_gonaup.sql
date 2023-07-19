@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2023 at 08:36 AM
+-- Generation Time: Jul 19, 2023 at 04:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -70,7 +70,7 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `company_name`, `position`, `linkdin_profile`, `size`, `website`, `tageline`, `description`, `created_at`, `updated_at`, `deleted_at`, `user_id`) VALUES
-(2, 'SkyFort', 'Sr. Software Developer', 'https://linkdin.com', 1, 'https://skypfort.com', NULL, NULL, '2023-07-04 18:14:08', NULL, NULL, 1);
+(2, 'SkyFort', 'Sr. Software Developer', 'https://linkdin.com', 1, 'https://skypfort.com', NULL, NULL, '2023-07-04 18:14:08', '2023-07-19 05:28:01', '2023-07-19 05:22:47', 1);
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,8 @@ CREATE TABLE `freelancer_experience` (
 
 INSERT INTO `freelancer_experience` (`id`, `title`, `company`, `country_id`, `country_code`, `country_name`, `city_name`, `is_working`, `working_from`, `working_to`, `description`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Sr. Software Developer', 'Agn', 99, 'IN', 'India', 'Rajkot', 0, '2022-02-02', '2022-06-02', 'I\'m Good Dev', 1, '2023-07-02 11:20:21', '2023-07-02 11:43:00', '2023-07-02 11:43:00'),
-(2, 'Sr. Software Dev', 'Agn', 99, 'IN', 'India', 'Rajkot', 1, '2022-02-02', NULL, 'I\'m Good Dev', 2, '2023-07-02 11:43:21', '2023-07-13 06:07:17', NULL);
+(2, 'Sr. Software Dev', 'Agn', 99, 'IN', 'India', 'Rajkot', 1, '2022-02-02', NULL, 'I\'m Good Dev', 2, '2023-07-02 11:43:21', '2023-07-13 06:07:17', NULL),
+(3, 'Sr. Software Dev', 'Agn', 99, 'IN', 'India', 'Rajkot', 0, '2022-02-02', '2022-06-02', 'I\'m Good Dev', 1, '2023-07-18 04:40:36', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -187,8 +188,8 @@ CREATE TABLE `hiring_records` (
 --
 
 INSERT INTO `hiring_records` (`id`, `status`, `suggested_rate`, `final_rate`, `user_id`, `project_id`, `hired_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 2, NULL, NULL, 2, 3, NULL, '2023-07-14 14:31:45', '2023-07-16 11:43:07', NULL),
-(5, 2, 16, 10, 1, 2, '2023-07-16 12:24:52', '2023-07-16 09:21:29', '2023-07-16 13:00:56', NULL);
+(2, 2, NULL, NULL, 2, 3, NULL, '2023-07-14 14:31:45', '2023-07-18 18:05:29', NULL),
+(5, 3, 16, 10, 1, 2, '2023-07-16 12:24:52', '2023-07-16 09:21:29', '2023-07-18 18:05:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -229,7 +230,7 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `title`, `description`, `budget_type`, `fixed_budget`, `min_hourly_budget`, `max_hourly_budget`, `skills`, `service_id`, `step_status`, `hour_per_week`, `experience_needed`, `project_duration`, `english_level`, `project_type`, `project_status`, `project_closed_reason`, `commission`, `hiring_status`, `contract_status`, `company_id`, `published_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 0, 'All positions filled', 99, 1, 1, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-15 07:20:53', NULL),
+(2, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 5, 1, 1, 1, NULL, 0, 0, 'All positions filled', 99, 1, 2, 2, '2023-07-06 11:59:08', '2023-07-05 06:10:03', '2023-07-17 15:07:32', NULL),
 (3, 'test', 'test 2', 1, NULL, 10, 15, '1,2,3', 1, 3, 1, 1, 1, NULL, 0, 0, NULL, 0, NULL, 0, 2, NULL, '2023-07-05 06:20:03', '2023-07-14 18:05:22', NULL),
 (4, 'Jr. Software Dev', 'description', NULL, NULL, 25, NULL, '1,2', NULL, 3, 1, 1, 1, NULL, 1, 0, NULL, 0, NULL, 0, 2, NULL, '2023-07-17 05:56:38', '2023-07-17 06:01:10', NULL);
 
@@ -306,7 +307,7 @@ CREATE TABLE `user_master` (
   `password` varchar(100) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `contact_number` varchar(15) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL COMMENT '0=freelancer,1=client,2=recruiter',
+  `type` int(11) DEFAULT NULL COMMENT '0=freelancer,1=client,2=recruiter,3=both',
   `skype_id` varchar(50) DEFAULT NULL,
   `professional_role` varchar(50) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -328,6 +329,7 @@ CREATE TABLE `user_master` (
   `services_offer` varchar(150) DEFAULT NULL,
   `skills` varchar(150) DEFAULT NULL,
   `signup_completed` tinyint(1) NOT NULL DEFAULT 0,
+  `current_login_type` int(11) NOT NULL DEFAULT 0 COMMENT '0=freelancer,1=client',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -337,9 +339,9 @@ CREATE TABLE `user_master` (
 -- Dumping data for table `user_master`
 --
 
-INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `image_url`, `contact_number`, `type`, `skype_id`, `professional_role`, `description`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `country_code`, `state_code`, `city_id`, `city_name`, `zip_code`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `services_offer`, `skills`, `signup_completed`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Jenish', 'S', 'jenishpatel1@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 1, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, '2023-07-01 17:08:17', '2023-07-16 11:05:05', NULL),
-(2, 'Jenish', 'patel', 'jenish101@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '2023-07-10 06:42:50', NULL, NULL);
+INSERT INTO `user_master` (`id`, `first_name`, `last_name`, `email`, `password`, `image_url`, `contact_number`, `type`, `skype_id`, `professional_role`, `description`, `address`, `country_id`, `country_name`, `state_id`, `state_name`, `country_code`, `state_code`, `city_id`, `city_name`, `zip_code`, `english_level`, `hourly_rate`, `freelance_profile`, `linkdin_profile`, `github_profile`, `services_offer`, `skills`, `signup_completed`, `current_login_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Jenish', 'Patel', 'jenishpatel1@gmail.com', '$2a$11$qe61Ns4LFz5bnVPhuI93e.yIwgmTiyKK9voH65x9PcCWbq6LeAq5.', 'user-490d93fe-a018-4352-8517-b23947f49bc5.jpeg', '1234567890', 0, 'live:skpe', 'Sr. Software Eng.', 'My Description', '240-street', 99, 'India', 34, 'Gujarat', 'IN', 'GJ', 39, 'Rajkot', 360009, NULL, 20, 'https', 'https', 'https', '1,2,3', '1,2,3', 1, 0, '2023-07-01 17:08:17', '2023-07-19 07:04:19', NULL),
+(2, 'Jenish', 'patel', 'jenish101@gmail.com', '$2a$11$IhLQ76zebuDPw52xkn9IUuSzPcozB.RJhVKTFIlXk/tfG1EELZt5i', NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, '2023-07-10 06:42:50', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -445,7 +447,7 @@ ALTER TABLE `freelancer_education`
 -- AUTO_INCREMENT for table `freelancer_experience`
 --
 ALTER TABLE `freelancer_experience`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `freelancer_projects`

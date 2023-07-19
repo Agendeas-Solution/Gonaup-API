@@ -8,6 +8,9 @@ class CompanyService {
     try {
       const [savedCompany] = await companyHelper.saveCompanyDetails(data)
       const [user] = await userHelper.getUserTypeById(data.userId)
+      if (user[0].type === USER.TYPE.FREELANCER) {
+        await userHelper.updateUserType(data.userId)
+      }
       const token = generateToken({
         userId: user[0].id,
         companyId: savedCompany['insertId'],

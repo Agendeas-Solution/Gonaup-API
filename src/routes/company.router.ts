@@ -10,7 +10,7 @@ companyRouter.post(
   API_URL.DETAILS,
   validateTokenMiddleware,
   joiValidatorMiddleware(companySchema.saveCompanyDetails),
-  companyController.saveClientProjectDetails,
+  companyController.saveCompanyDetails,
 )
 
 export { companyRouter }
