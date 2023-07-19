@@ -191,7 +191,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"type\": 1\n}",
+							"raw": "{\n    \"type\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1483,6 +1483,39 @@
 							"path": [
 								"project",
 								"apply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close Project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"All Jobs Filled\",\n    \"projectId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/project/close",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"project",
+								"close"
 							]
 						}
 					},
