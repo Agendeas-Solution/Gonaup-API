@@ -5,8 +5,10 @@ export const MESSAGES = {
     USER_ALREADY_EXISTS: 'User already exists with this email address',
     USER_NOT_EXISTS: 'User not exists with this email address',
     INVALID_EMAIL_PASSWORD: 'Invalid email or password',
+    EMAIL_SENT_SUCCESSFULLY: 'Reset password link sent to your email id!',
     PASSWORD_CHANGED: 'Password changed successfully',
     ACCOUNT_NOT_FOUND: 'Account not found',
+    INVALID_TOKEN: 'Invalid Token. please try again later!',
   },
   COMMON_MESSAGE: {
     RECORD_FOUND_SUCCESSFULLY: 'Record found successfully!',

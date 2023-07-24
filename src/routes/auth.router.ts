@@ -50,4 +50,16 @@ authRouter.get(
   authController.getAccounts,
 )
 
+authRouter.post(
+  API_URL.AUTH.FORGOT_PASSWORD,
+  joiValidatorMiddleware(authSchemas.forgotPassword),
+  authController.forgotPassword,
+)
+
+authRouter.post(
+  API_URL.AUTH.RESET_PASSWORD,
+  joiValidatorMiddleware(authSchemas.resetPassword),
+  authController.resetPassword,
+)
+
 export { authRouter }
