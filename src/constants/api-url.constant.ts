@@ -4,6 +4,8 @@ export const API_URL = {
     CHANGE_PASSWORD: '/change-password',
     SWITCH_ACCOUNT: '/switch-account',
     ACCOUNTS: '/accounts',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
   },
   FREELANCER: {
     ASSIGN_PROJECT_LIST: '/freelancer/list',

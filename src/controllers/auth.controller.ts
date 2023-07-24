@@ -71,6 +71,25 @@ class AuthController {
       next(error)
     }
   }
+
+  async forgotPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(res, await authService.forgotPassword(req.body.email))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await authService.resetPassword(req.body.token, req.body.newPassword),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const authController = new AuthController()

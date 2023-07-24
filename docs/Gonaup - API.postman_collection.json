@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"jenishpatel1@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
+							"raw": "{\n    \"email\": \"jenishshekhaliya@gmail.com\",\n    \"password\": \"jenish@820\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,6 +206,72 @@
 							"path": [
 								"auth",
 								"switch-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"jenishpatel1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/forgot-password",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"jenish@820\",\n    \"token\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MDIxNTM0OH0.neRvt8fpgmZMedbyhSwplrXt3SwZNotPwDOFxDzLvTI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/auth/reset-password",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
 							]
 						}
 					},
@@ -1198,7 +1264,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test 2\",\n    \"projectId\" : 2\n}",
+							"raw": "{\n    \"title\": \"test\",\n    \"description\": \"test 2\",\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1762,7 +1828,7 @@
 		},
 		{
 			"key": "authToken",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInR5cGUiOjEsImNvbXBhbnlJZCI6MiwiaWF0IjoxNjg5NTA1NTA4fQ.E3bX3wuGXCcVkdppkWTKWqfEFl0qUOEZugdBg3RvrgQ",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInR5cGUiOjEsImNvbXBhbnlJZCI6MiwiaWF0IjoxNjkwMDA3NDE5fQ.L6VhESZqz-mW2L5fBxgIjsAPk1FQReGZoKK4yezF5Y4",
 			"type": "string"
 		}
 	]

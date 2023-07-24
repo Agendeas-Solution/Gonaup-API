@@ -1,6 +1,7 @@
 import { FieldPacket, RowDataPacket } from 'mysql2'
-import { S3_CONFIG } from '../config'
-import { searchHelper } from '../helpers'
+import { EMAIL_CONFIG, S3_CONFIG } from '../config'
+import { mailHelper, searchHelper } from '../helpers'
+import { sendEmailInterface } from '../interfaces'
 
 export const paginationLimitQuery = (pageNumber = 1, pageSize = 10) => {
   const pageOffset = (pageNumber - 1) * pageSize
@@ -37,4 +38,40 @@ export const getServiceList = async (
   )) as [RowDataPacket[][], FieldPacket[]]
 
   return isOnlyName ? serviceList.map(s => s['name']).toString() : serviceList
+}
+
+export async function sendEmail({
+  to,
+  subject = '',
+  text = '',
+  html = '',
+}: sendEmailInterface) {
+  try {
+    await mailHelper.getTransport().sendMail({
+      from: {
+        name: EMAIL_CONFIG.SENDER_NAME,
+        address: EMAIL_CONFIG.SENDER_EMAIL,
+      },
+      to,
+      subject,
+      text,
+      html,
+    })
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}
+
+export function emailSubjectAndContentFormatting(
+  subject: string,
+  content: string,
+  data: any,
+) {
+  subject = subject.replace('[[EMAIL]]', data.email)
+
+  content = content.replace('[[OTP]]', data.otp)
+  content = content.replace(/\[\[PASSWORD_URL\]\]/g, data.password_url)
+
+  return { subject, content }
 }

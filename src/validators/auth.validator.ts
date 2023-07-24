@@ -32,4 +32,17 @@ export const authSchemas = {
       type: Joi.number().valid(0, 1).required(),
     }).required(),
   }).unknown(),
+
+  forgotPassword: Joi.object({
+    body: Joi.object({
+      email: Joi.string().email().required(),
+    }).required(),
+  }).unknown(),
+
+  resetPassword: Joi.object({
+    body: Joi.object({
+      newPassword: Joi.string().required(),
+      token: Joi.string().required(),
+    }).required(),
+  }).unknown(),
 }

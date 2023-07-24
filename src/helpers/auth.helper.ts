@@ -85,6 +85,19 @@ class AuthHelper {
       id = ?`
     return pool.query(updateQuery, [type, userId])
   }
+
+  async getEmailFormat(id: number) {
+    const selectQuery = `
+    SELECT
+      id,
+      subject,
+      content 
+    FROM
+      email_templates 
+    WHERE
+      id = ?`
+    return pool.query(selectQuery, [id])
+  }
 }
 
 export const authHelper = new AuthHelper()

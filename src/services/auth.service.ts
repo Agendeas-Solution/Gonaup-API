@@ -4,10 +4,11 @@ import {
 } from '../interfaces'
 import { MESSAGES, USER } from '../constants'
 import bcrypt from 'bcryptjs'
-import { SERVER_CONFIG } from '../config'
+import { SERVER_CONFIG, URL_CONFIG } from '../config'
 import { authHelper, companyHelper, userHelper } from '../helpers'
 import { BadRequestException, NotFoundException } from '../exceptions'
-import { generateToken } from '../utils/jwt-token.util'
+import { generateToken, validateToken } from '../utils/jwt-token.util'
+import { emailSubjectAndContentFormatting, sendEmail } from '../utils'
 
 class AuthService {
   async clientEmailSignup(data: freelancerOrClientSignupInterface) {
@@ -97,11 +98,14 @@ class AuthService {
         )
         companyId = company[0]?.id
       }
-      const token = generateToken({
-        userId: existedUser[0].id,
-        type: existedUser[0].type,
-        companyId: companyId,
-      })
+      const token = generateToken(
+        {
+          userId: existedUser[0].id,
+          type: existedUser[0].type,
+          companyId: companyId,
+        },
+        SERVER_CONFIG.JWT_SECRET,
+      )
 
       return {
         message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,
@@ -158,21 +162,27 @@ class AuthService {
 
       if (type === 0) {
         // 0 = freelancer
-        token = generateToken({
-          userId: userAccount[0].id,
-          type: userAccount[0].type,
-        })
+        token = generateToken(
+          {
+            userId: userAccount[0].id,
+            type: userAccount[0].type,
+          },
+          SERVER_CONFIG.JWT_SECRET,
+        )
       } else if (type === 1) {
         // 1 = client
         const [companyAccount] = await authHelper.getCompanyAccountByUserId(
           userId,
         )
 
-        token = generateToken({
-          userId: userAccount[0].id,
-          type: userAccount[0].type,
-          companyId: companyAccount[0].id,
-        })
+        token = generateToken(
+          {
+            userId: userAccount[0].id,
+            type: userAccount[0].type,
+            companyId: companyAccount[0].id,
+          },
+          SERVER_CONFIG.JWT_SECRET,
+        )
       }
 
       await authHelper.updateUserCurrentLoginType(type, userId)
@@ -220,6 +230,60 @@ class AuthService {
         message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,
         data: accountList,
       }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async forgotPassword(email: string) {
+    try {
+      const [user] = await userHelper.getUserByEmail(email)
+
+      if (!user[0])
+        throw new BadRequestException(MESSAGES.AUTH.INVALID_EMAIL_PASSWORD)
+
+      const token = generateToken(
+        { userId: user[0].id },
+        SERVER_CONFIG.JWT_RESET_PASSWORD_SECRET,
+      )
+
+      const [emailFormat] = await authHelper.getEmailFormat(2)
+
+      const { subject, content: html } = emailSubjectAndContentFormatting(
+        emailFormat[0].subject,
+        emailFormat[0].content,
+        { password_url: `${URL_CONFIG.FRONTED_URL}?reset-password=${token}` },
+      )
+
+      sendEmail({
+        to: email,
+        subject,
+        html,
+      })
+
+      return {
+        message: MESSAGES.AUTH.EMAIL_SENT_SUCCESSFULLY,
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async resetPassword(token: string, newPassword: string) {
+    try {
+      const tokenData = validateToken(
+        token,
+        SERVER_CONFIG.JWT_RESET_PASSWORD_SECRET,
+      )
+      if (!tokenData || !tokenData['userId'])
+        throw new BadRequestException(MESSAGES.AUTH.INVALID_TOKEN)
+
+      newPassword = await bcrypt.hash(newPassword, SERVER_CONFIG.HASH_SALT)
+      await authHelper.changePassword(tokenData['userId'], newPassword)
+
+      return { message: MESSAGES.AUTH.PASSWORD_CHANGED }
     } catch (error) {
       console.log(error)
       throw error

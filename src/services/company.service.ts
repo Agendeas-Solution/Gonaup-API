@@ -1,3 +1,4 @@
+import { SERVER_CONFIG } from '../config'
 import { MESSAGES, USER } from '../constants'
 import { companyHelper, userHelper } from '../helpers'
 import { saveCompanyDetailsInterface } from '../interfaces'
@@ -11,11 +12,14 @@ class CompanyService {
       if (user[0].type === USER.TYPE.FREELANCER) {
         await userHelper.updateUserType(data.userId)
       }
-      const token = generateToken({
-        userId: user[0].id,
-        companyId: savedCompany['insertId'],
-        type: user[0].type,
-      })
+      const token = generateToken(
+        {
+          userId: user[0].id,
+          companyId: savedCompany['insertId'],
+          type: user[0].type,
+        },
+        SERVER_CONFIG.JWT_SECRET,
+      )
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
