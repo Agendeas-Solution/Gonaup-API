@@ -302,7 +302,8 @@ class ProjectHelper {
       experience_needed,
       hour_per_week,
       project_status,
-      case when hr.status != 0 then true else false end as invited
+      case when hr.status != 0 then true else false end as invited,
+      project_type
     FROM
       projects as p
     LEFT JOIN
