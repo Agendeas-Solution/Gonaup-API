@@ -27,5 +27,6 @@ export const MESSAGES = {
   PROJECT: {
     APPLIED_SUCCESSFULLY: 'Applied for project successfully!',
     CLOSED_SUCCEESSFULLY: 'Project closed successfully!',
+    BUDGET_NOT_UPDATED: 'Cannot update project budget!',
   },
 }

@@ -6,7 +6,7 @@ import {
   updateProjectBudget,
   updateProjectRequirements,
 } from '../interfaces'
-import { NotFoundException } from '../exceptions'
+import { BadRequestException, NotFoundException } from '../exceptions'
 import { FieldPacket, RowDataPacket } from 'mysql2'
 import { getSkillList } from '../utils'
 
@@ -51,6 +51,15 @@ class ProjectService {
 
   async updateProjectBudget(data: updateProjectBudget) {
     try {
+      const [projectPublishedStatus] =
+        await projectHelper.getProjectPublishedStatus(
+          data.companyId,
+          data.projectId,
+        )
+
+      if (projectPublishedStatus[0] && projectPublishedStatus[0].published_at)
+        throw new BadRequestException(MESSAGES.PROJECT.BUDGET_NOT_UPDATED)
+
       await projectHelper.updateProjectBudget(data)
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,

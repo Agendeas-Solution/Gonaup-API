@@ -60,7 +60,12 @@ class JobHelper {
       experience_needed = ?,
       project_duration = ?,
       hour_per_week = ?,
-      step_status = 3
+      step_status = 
+        CASE
+          WHEN 
+            published_at IS NOT NULL THEN step_status 
+          ELSE 3 
+        END
     WHERE
       company_id = ? 
       AND id = ?`

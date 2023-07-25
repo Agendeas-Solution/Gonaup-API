@@ -57,7 +57,12 @@ class ProjectHelper {
     SET 
       skills = ?,
       service_id = ?,
-      step_status = 3
+      step_status = 
+        CASE
+          WHEN 
+            published_at IS NOT NULL THEN step_status 
+          ELSE 3 
+        END
     WHERE
       company_id = ? 
       AND id = ?`
@@ -73,7 +78,12 @@ class ProjectHelper {
       fixed_budget = ?,
       min_hourly_budget = ?,
       max_hourly_budget = ?,
-      step_status = 4
+      step_status =  
+        CASE
+          WHEN 
+            published_at IS NOT NULL THEN step_status 
+          ELSE 4
+        END
     WHERE
       company_id = ? 
       AND id = ?`
@@ -87,6 +97,18 @@ class ProjectHelper {
     ])
   }
 
+  async getProjectPublishedStatus(companyId: number, projectId: number) {
+    const findQuery = `
+    SELECT
+      published_at
+    FROM
+      projects
+    WHERE
+      company_id = ? 
+      AND id = ?`
+    return pool.query(findQuery, [companyId, projectId])
+  }
+
   async updateProjectRequirements(data: updateProjectRequirements) {
     const updateQuery = `
     UPDATE
@@ -95,7 +117,12 @@ class ProjectHelper {
       experience_needed = ?,
       project_duration = ?,
       hour_per_week = ?,
-      step_status = 5
+      step_status = 
+        CASE
+          WHEN 
+            published_at IS NOT NULL THEN step_status 
+          ELSE 5 
+        END
       ${data.isPublished ? ',published_at = now()' : ''}
     WHERE
       company_id = ? 
