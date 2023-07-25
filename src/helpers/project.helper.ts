@@ -152,7 +152,8 @@ class ProjectHelper {
       project_duration,
       experience_needed,
       hour_per_week,
-      project_status
+      project_status,
+      project_type
     FROM
       projects as p
     LEFT JOIN
