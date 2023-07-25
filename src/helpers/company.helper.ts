@@ -1,8 +1,8 @@
 import { pool } from '../databases'
-import { saveCompanyDetailsInterface } from '../interfaces'
+import { saveOrUpdateCompanyDetailsInterface } from '../interfaces'
 
 class CompanyHelper {
-  async saveCompanyDetails(data: saveCompanyDetailsInterface) {
+  async saveCompanyDetails(data: saveOrUpdateCompanyDetailsInterface) {
     const insertQuery = `
     INSERT INTO companies
         (
@@ -22,6 +22,28 @@ class CompanyHelper {
       data.linkdinProfile,
       data.size,
       data.userId,
+    ])
+  }
+
+  async updateCompanyDetails(data: saveOrUpdateCompanyDetailsInterface) {
+    const updateQuery = `
+    UPDATE
+      companies
+    SET
+      company_name = ?,
+      position = ?,
+      website = ?,
+      linkdin_profile = ?,
+      size = ?
+    WHERE
+      id = ?`
+    return pool.query(updateQuery, [
+      data.companyName,
+      data.position,
+      data.website,
+      data.linkdinProfile,
+      data.size,
+      data.companyId,
     ])
   }
 

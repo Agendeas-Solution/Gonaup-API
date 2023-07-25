@@ -1,11 +1,11 @@
 import { SERVER_CONFIG } from '../config'
 import { MESSAGES, USER } from '../constants'
 import { companyHelper, userHelper } from '../helpers'
-import { saveCompanyDetailsInterface } from '../interfaces'
+import { saveOrUpdateCompanyDetailsInterface } from '../interfaces'
 import { generateToken } from '../utils/jwt-token.util'
 
 class CompanyService {
-  async saveCompanyDetails(data: saveCompanyDetailsInterface) {
+  async saveCompanyDetails(data: saveOrUpdateCompanyDetailsInterface) {
     try {
       const [savedCompany] = await companyHelper.saveCompanyDetails(data)
       const [user] = await userHelper.getUserTypeById(data.userId)
@@ -24,6 +24,18 @@ class CompanyService {
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_SAVED_SUCCESSFULLY,
         data: { token },
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  async updateCompanyDetails(data: saveOrUpdateCompanyDetailsInterface) {
+    try {
+      await companyHelper.updateCompanyDetails(data)
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
       }
     } catch (error) {
       console.log(error)

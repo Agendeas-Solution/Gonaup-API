@@ -4,7 +4,7 @@ import Joi from 'joi'
  * Joi schema for Coupon route request validation
  */
 export const companySchema = {
-  saveCompanyDetails: Joi.object({
+  saveOrUpdateCompanyDetails: Joi.object({
     body: Joi.object({
       companyName: Joi.string().required(),
       position: Joi.string().required(),

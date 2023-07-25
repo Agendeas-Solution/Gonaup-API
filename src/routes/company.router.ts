@@ -9,8 +9,15 @@ const companyRouter = Router()
 companyRouter.post(
   API_URL.DETAILS,
   validateTokenMiddleware,
-  joiValidatorMiddleware(companySchema.saveCompanyDetails),
+  joiValidatorMiddleware(companySchema.saveOrUpdateCompanyDetails),
   companyController.saveCompanyDetails,
+)
+
+companyRouter.put(
+  API_URL.DETAILS,
+  validateTokenMiddleware,
+  joiValidatorMiddleware(companySchema.saveOrUpdateCompanyDetails),
+  companyController.updateCompanyDetails,
 )
 
 export { companyRouter }

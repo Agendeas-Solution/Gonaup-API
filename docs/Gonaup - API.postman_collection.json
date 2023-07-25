@@ -1796,6 +1796,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Company Details",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyName\": \"SkyFort Tech\",\n    \"position\": \"Sr. Software Developer\",\n    \"website\": \"https://skypfort.com\",\n    \"linkdinProfile\": \"https://linkdin.com\",\n    \"size\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localUrl}}/company/details",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"company",
+								"details"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

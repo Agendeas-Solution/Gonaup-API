@@ -16,6 +16,20 @@ class CompanyController {
       next(error)
     }
   }
+
+  async updateCompanyDetails(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await companyService.updateCompanyDetails({
+          ...req.body,
+          companyId: req.token.companyId,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const companyController = new CompanyController()
