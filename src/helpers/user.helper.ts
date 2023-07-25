@@ -397,7 +397,11 @@ class UserHelper {
     UPDATE
       freelancer_projects
     SET
-      project_image_url = ?,
+     ${
+       projectImage.length > 0
+         ? `project_image_url = ${projectImage.toString()},`
+         : ''
+     } 
       title = ?,
       project_url = ?,
       description = ?,
@@ -409,7 +413,6 @@ class UserHelper {
       AND user_id = ?
       AND deleted_at IS NULL`
     return pool.query(updateQuery, [
-      projectImage.toString(),
       data.title,
       data.projectUrl,
       data.description,
