@@ -205,11 +205,8 @@ class ProjectHelper {
       p.id,
       p.title,
       p.description,
-      p.budget_type,
-      p.fixed_budget,
-      p.min_hourly_budget,
-      p.max_hourly_budget,
-      p.project_duration
+      p.skills,
+      p.created_at
     FROM
       projects as p
     LEFT JOIN

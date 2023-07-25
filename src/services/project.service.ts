@@ -125,7 +125,7 @@ class ProjectService {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
-          data: projectList,
+          projectList: projectList,
         },
       }
     } catch (error) {
@@ -136,19 +136,27 @@ class ProjectService {
 
   async getFreelancerProjectList(data) {
     try {
-      const [[projectCount], projectList] = await Promise.all([
+      const [[projectCount], [projectRecords]] = await Promise.all([
         projectHelper.getFreeLancerProjectsCount(data),
         projectHelper.getFreelancerProjectList(data),
       ])
 
+      const projectList = projectRecords as [RowDataPacket[][], FieldPacket[]]
+
       if (!projectCount[0].total)
         throw new NotFoundException(MESSAGES.COMMON_MESSAGE.RECORD_NOT_FOUND)
+
+      for (const project of projectList) {
+        if (project['skills']) {
+          project['skills'] = await getSkillList(project, 'skills', true)
+        }
+      }
 
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
         data: {
           totalPage: projectCount[0].total,
-          data: projectList[0],
+          projectList: projectList,
         },
       }
     } catch (error) {
