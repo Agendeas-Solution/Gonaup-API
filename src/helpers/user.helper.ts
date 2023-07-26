@@ -661,6 +661,7 @@ class UserHelper {
       state_id,
       state_code,
       state_name,
+      city_id,
       city_name,
       zip_code
       ${
