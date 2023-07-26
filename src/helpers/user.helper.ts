@@ -655,7 +655,11 @@ class UserHelper {
       contact_number,
       skype_id,
       address,
+      country_id,
+      country_code,
       country_name,
+      state_id,
+      state_code,
       state_name,
       city_name,
       zip_code
