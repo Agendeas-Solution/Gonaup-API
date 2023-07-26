@@ -237,7 +237,7 @@ class ProjectHelper {
       p.created_at
     FROM
       projects as p
-    LEFT JOIN
+    INNER JOIN
       hiring_records as hr
     ON
       hr.project_id = p.id
@@ -257,7 +257,7 @@ class ProjectHelper {
       COUNT(1) as total
     FROM
       projects as p
-    LEFT JOIN
+    INNER JOIN
       hiring_records as hr
     ON
       hr.project_id = p.id
@@ -310,7 +310,7 @@ class ProjectHelper {
       services as s 
     ON 
       p.service_id = s.id
-    LEFT JOIN
+    INNER JOIN
       hiring_records as hr
     ON
       hr.project_id = p.id
@@ -346,7 +346,7 @@ class ProjectHelper {
         CONCAT(first_name, ' ', SUBSTRING(last_name, 1, 1)) AS full_name
       FROM
         hiring_records as hr
-      LEFT JOIN
+      INNER JOIN
         user_master as u
       ON
         u.id = hr.user_id
