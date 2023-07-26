@@ -5,6 +5,7 @@ import { projectRouter } from './project.router'
 import { searchRouter } from './search.router'
 import { companyRouter } from './company.router'
 import { jobRouter } from './job.router'
+import { notificationRouter } from './notifications.router'
 
 const router = Router()
 
@@ -14,5 +15,6 @@ router.use('/project', projectRouter)
 router.use('/search', searchRouter)
 router.use('/company', companyRouter)
 router.use('/job', jobRouter)
+router.use('/notifications', notificationRouter)
 
 export { router }
