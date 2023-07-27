@@ -243,7 +243,9 @@ class UserHelper {
       working_from,
       working_to,
       city_name,
-      country_name
+      country_name,
+      country_id,
+      description
     FROM
       freelancer_experience
     WHERE
