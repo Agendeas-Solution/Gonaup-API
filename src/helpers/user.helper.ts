@@ -127,6 +127,7 @@ class UserHelper {
       school,
       degree,
       study_in,
+      description,
       date_from,
       date_to
     FROM
