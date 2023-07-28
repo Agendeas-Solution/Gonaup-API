@@ -1831,6 +1831,35 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Update Company Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localUrl}}/notifications/list",
+							"host": [
+								"{{localUrl}}"
+							],
+							"path": [
+								"notifications",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

@@ -1,7 +1,21 @@
 import { NextFunction, Request, Response } from 'express'
-import { companyService } from '../services'
+import { notificationService } from '../services'
 import { sendSuccessResponse } from '../utils'
 
-class NotificationController {}
+class NotificationController {
+  async getNotificationList(req: Request, res: Response, next: NextFunction) {
+    try {
+      sendSuccessResponse(
+        res,
+        await notificationService.getNotificationList({
+          ...req.query,
+          userId: req.token.userId,
+        }),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
+}
 
 export const notificationController = new NotificationController()
