@@ -20,6 +20,7 @@ class NotificationHelper {
       n.id = nr.notification_id
     WHERE
       nr.user_id = ?
+      OR n.is_by_admin = 1
     ORDER BY
       n.created_at DESC
     ${limitQuery}`
@@ -39,6 +40,7 @@ class NotificationHelper {
       n.id = nr.notification_id
     WHERE
       nr.user_id = ?
+      OR n.is_by_admin = 1
     `
     return pool.query(findQuery, [data.userId])
   }
@@ -49,13 +51,14 @@ class NotificationHelper {
       COUNT(1) as count
     FROM
       notifications as n
-    INNER JOIN
+    LEFT JOIN
       notification_recipients as nr
     ON
       n.id = nr.notification_id
     WHERE
       nr.user_id = ?
       AND nr.is_read = 0
+      OR n.is_by_admin = 1
     `
     return pool.query(findQuery, [userId])
   }
