@@ -25,6 +25,23 @@ class NotificationService {
       throw error
     }
   }
+
+  async getNotificationUnreadCount(userId: number) {
+    try {
+      const [notificationCount] =
+        await notificationHelper.getNotificationUnreadCount(userId)
+
+      return {
+        message: MESSAGES.COMMON_MESSAGE.RECORD_FOUND_SUCCESSFULLY,
+        data: {
+          unReadCount: notificationCount[0].count,
+        },
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
 }
 
 export const notificationService = new NotificationService()

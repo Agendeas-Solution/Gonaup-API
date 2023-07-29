@@ -42,6 +42,23 @@ class NotificationHelper {
     `
     return pool.query(findQuery, [data.userId])
   }
+
+  getNotificationUnreadCount(userId: number) {
+    const findQuery = `
+    SELECT
+      COUNT(1) as count
+    FROM
+      notifications as n
+    INNER JOIN
+      notification_recipients as nr
+    ON
+      n.id = nr.notification_id
+    WHERE
+      nr.user_id = ?
+      AND nr.is_read = 0
+    `
+    return pool.query(findQuery, [userId])
+  }
 }
 
 export const notificationHelper = new NotificationHelper()

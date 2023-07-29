@@ -35,12 +35,11 @@ export const API_URL = {
     APPLY: '/apply',
     CLOSE: '/close',
   },
-  COMPANY: {},
   RECRUITER: {
     EMAIL_SIGNUP: '/recruiter/signup',
     JOB_LIST: '/recruiter/list',
   },
-  JOB_POST: {},
+  NOTIFICATION_COUNT: '/count',
   LIST: '/list',
   SKILL: '/skill',
   SERVICES: '/services',

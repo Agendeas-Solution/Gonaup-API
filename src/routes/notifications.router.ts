@@ -13,4 +13,10 @@ notificationRouter.get(
   notificationController.getNotificationList,
 )
 
+notificationRouter.get(
+  API_URL.NOTIFICATION_COUNT,
+  validateTokenMiddleware,
+  notificationController.getNotificationUnreadCount,
+)
+
 export { notificationRouter }

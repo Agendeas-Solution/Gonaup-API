@@ -16,6 +16,21 @@ class NotificationController {
       next(error)
     }
   }
+
+  async getNotificationUnreadCount(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      sendSuccessResponse(
+        res,
+        await notificationService.getNotificationUnreadCount(req.token.userId),
+      )
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const notificationController = new NotificationController()
