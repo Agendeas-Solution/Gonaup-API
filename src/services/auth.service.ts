@@ -211,7 +211,7 @@ class AuthService {
         imageUrl: userAccount[0].image_url,
         fullName: userAccount[0].first_name + ' ' + userAccount[0].last_name,
         type: 0, // 0 = freelancer
-        main: userAccount[0].current_login_type === 0 ? true : undefined,
+        main: userAccount[0].current_login_type === 0 ? true : false,
       })
 
       const [companyAccount] = await authHelper.getCompanyAccountByUserId(
@@ -222,7 +222,7 @@ class AuthService {
         accountList.push({
           fullName: companyAccount[0].company_name,
           type: 1, // 1 = client
-          main: userAccount[0].current_login_type === 1 ? true : undefined,
+          main: userAccount[0].current_login_type === 1 ? true : false,
         })
       }
 
