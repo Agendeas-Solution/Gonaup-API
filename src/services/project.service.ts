@@ -198,6 +198,7 @@ class ProjectService {
   async applyForProject(data: applyForProject) {
     try {
       await projectHelper.applyForProject(data)
+      await projectHelper.saveNotfication(data.userId, data.projectId)
       return {
         message: MESSAGES.PROJECT.APPLIED_SUCCESSFULLY,
       }

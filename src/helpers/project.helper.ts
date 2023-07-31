@@ -371,6 +371,20 @@ class ProjectHelper {
         AND company_id = ?`
     return pool.query(updateQuery, [reason, projectId, companyId])
   }
+
+  async saveNotfication(userId: number, projectId: number) {
+    const insertQuery = `
+    INSERT INTO notifications
+      (
+        title,
+        content,
+        sender_id,
+        project_id
+    )
+    VALUES 
+      ('apply for a project' ,'user has shown interest in project' ,? ,?)`
+    return pool.query(insertQuery, [userId, projectId])
+  }
 }
 
 export const projectHelper = new ProjectHelper()
