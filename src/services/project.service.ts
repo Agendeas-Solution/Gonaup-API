@@ -1,4 +1,4 @@
-import { projectHelper, userHelper } from '../helpers'
+import { companyHelper, projectHelper } from '../helpers'
 import { MESSAGES } from '../constants'
 import {
   applyForProject,
@@ -73,6 +73,23 @@ class ProjectService {
   async updateProjectRequirements(data: updateProjectRequirements) {
     try {
       await projectHelper.updateProjectRequirements(data)
+      if (data.isPublished) {
+        const [companiesDetails] = await companyHelper.getCompanyDetailById(
+          data.companyId,
+        )
+
+        const [project] = await projectHelper.getProjectTitle(data.projectId)
+        await projectHelper.saveNotfication({
+          title: companiesDetails[0].company_name + ' has published a project',
+          content:
+            companiesDetails[0].company_name +
+            ' has published a project for ' +
+            project[0].title,
+          userId: data.userId,
+          projectId: data.projectId,
+        })
+      }
+
       return {
         message: MESSAGES.COMMON_MESSAGE.RECORD_UPDATE_SUCCESSFULLY,
       }
@@ -198,7 +215,12 @@ class ProjectService {
   async applyForProject(data: applyForProject) {
     try {
       await projectHelper.applyForProject(data)
-      await projectHelper.saveNotfication(data.userId, data.projectId)
+      await projectHelper.saveNotfication({
+        title: 'apply for a project',
+        content: 'user has shown interest in project',
+        userId: data.userId,
+        projectId: data.projectId,
+      })
       return {
         message: MESSAGES.PROJECT.APPLIED_SUCCESSFULLY,
       }
@@ -208,9 +230,31 @@ class ProjectService {
     }
   }
 
-  async closeProject(reason: string, projectId: number, companyId: number) {
+  async closeProject(
+    reason: string,
+    projectId: number,
+    companyId: number,
+    userId: number,
+  ) {
     try {
       await projectHelper.closeProject(reason, projectId, companyId)
+      const [companiesDetails] = await companyHelper.getCompanyDetailById(
+        companyId,
+      )
+
+      const [project] = await projectHelper.getProjectTitle(projectId)
+      await projectHelper.saveNotfication({
+        title: companiesDetails[0].company_name + ' has closed a project',
+        content:
+          companiesDetails[0].company_name +
+          ' has closed a project of ' +
+          project[0].title +
+          ' for the reason of ' +
+          reason,
+        userId: userId,
+        projectId: projectId,
+      })
+
       return {
         message: MESSAGES.PROJECT.CLOSED_SUCCEESSFULLY,
       }

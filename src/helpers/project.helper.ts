@@ -2,6 +2,7 @@ import {
   ProjectListType,
   applyForProject,
   saveOrUpdateProjectTitleAndDesc,
+  saveProjectNotification,
   updateProjectBudget,
   updateProjectRequirements,
 } from '../interfaces'
@@ -372,7 +373,7 @@ class ProjectHelper {
     return pool.query(updateQuery, [reason, projectId, companyId])
   }
 
-  async saveNotfication(userId: number, projectId: number) {
+  async saveNotfication(data: saveProjectNotification) {
     const insertQuery = `
     INSERT INTO notifications
       (
@@ -382,8 +383,26 @@ class ProjectHelper {
         project_id
     )
     VALUES 
-      ('apply for a project' ,'user has shown interest in project' ,? ,?)`
-    return pool.query(insertQuery, [userId, projectId])
+      (? ,? ,? ,?)`
+    return pool.query(insertQuery, [
+      data.title,
+      data.content,
+      data.userId,
+      data.projectId,
+    ])
+  }
+
+  async getProjectTitle(projectId: number) {
+    const findQuery = `
+    SELECT
+      title
+    FROM
+      projects 
+    WHERE
+      id = ?
+      AND deleted_at IS NULL`
+
+    return pool.query(findQuery, [projectId])
   }
 }
 

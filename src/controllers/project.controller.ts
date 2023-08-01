@@ -64,6 +64,7 @@ class ProjectController {
         await projectService.updateProjectRequirements({
           ...req.body,
           companyId: req.token.companyId,
+          userId: req.token.userId,
         }),
       )
     } catch (error) {
@@ -161,6 +162,7 @@ class ProjectController {
           req.body.reason,
           req.body.projectId,
           req.token?.companyId,
+          req.token.userId,
         ),
       )
     } catch (error) {
