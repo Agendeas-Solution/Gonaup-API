@@ -116,6 +116,12 @@ class AuthService {
             lastName: existedUser[0].last_name,
             signupCompleted: existedUser[0].signup_completed,
             type: existedUser[0].type,
+            hasCompany:
+              existedUser[0].type !== USER.TYPE.FREELANCER
+                ? companyId
+                  ? true
+                  : false
+                : undefined,
           },
         },
       }
