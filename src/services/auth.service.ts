@@ -197,7 +197,7 @@ class AuthService {
         message: MESSAGES.AUTH.USER_LOGIN_SUCCESSFULLY,
         data: {
           token,
-          type: userAccount[0].type,
+          type,
         },
       }
     } catch (error) {
