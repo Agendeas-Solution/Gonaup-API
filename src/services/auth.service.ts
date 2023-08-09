@@ -89,7 +89,7 @@ class AuthService {
       if (!isMatched)
         throw new BadRequestException(MESSAGES.AUTH.INVALID_EMAIL_PASSWORD)
 
-      let companyId
+      let companyId, projectId, step_status
       if (
         [USER.TYPE.CLIENT, USER.TYPE.RECRUITER].includes(existedUser[0].type)
       ) {
@@ -97,6 +97,13 @@ class AuthService {
           existedUser[0].id,
         )
         companyId = company[0]?.id
+        if (companyId && !existedUser[0].signup_completed) {
+          const [project] = await companyHelper.getCompanyProjectWithStatus(
+            companyId,
+          )
+          projectId = project[0].id
+          step_status = project[0].step_status
+        }
       }
       const token = generateToken(
         {
@@ -122,6 +129,8 @@ class AuthService {
                   ? true
                   : false
                 : undefined,
+            projectId,
+            step_status,
           },
         },
       }

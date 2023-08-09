@@ -75,6 +75,20 @@ class CompanyHelper {
     LIMIT 1`
     return pool.query(findQuery, [userId])
   }
+
+  async getCompanyProjectWithStatus(companyId: number) {
+    const findQuery = `
+    SELECT
+      id,
+      step_status
+    FROM
+      projects
+    WHERE
+      company_id = ?
+      AND deleted_at IS NULL
+    LIMIT 1`
+    return pool.query(findQuery, [companyId])
+  }
 }
 
 export const companyHelper = new CompanyHelper()
