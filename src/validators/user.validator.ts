@@ -75,7 +75,6 @@ export const userSchemas = {
       countryId: Joi.number().required(),
       countryName: Joi.string().required(),
       countryCode: Joi.string().required(),
-      cityId: Joi.number().required(),
       cityName: Joi.string().required(),
       isWorking: Joi.boolean(),
       workingFrom: Joi.string(),
