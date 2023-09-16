@@ -245,6 +245,7 @@ class UserHelper {
       city_name,
       country_name,
       country_id,
+      country_code,
       description
     FROM
       freelancer_experience
